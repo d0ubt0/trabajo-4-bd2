@@ -1,0 +1,286 @@
+Timing is on.
+EXPLAIN ANALYZE - Consulta 1
+                                                                     QUERY PLAN                                                                     
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Anti Join  (cost=1292.67..11623599.56 rows=587861 width=34) (actual time=153.961..789.144 rows=190 loops=1)
+   Output: p1.nit, p1.nombre, p2.nit, p2.nombre
+   Hash Cond: (p2.nit = y2.nit)
+   Join Filter: (NOT (hashed SubPlan 4))
+   Buffers: shared hit=398426
+   ->  Hash Anti Join  (cost=646.47..6729978.42 rows=804768 width=34) (actual time=150.937..765.775 rows=39790 loops=1)
+         Output: p1.nit, p1.nombre, p2.nit, p2.nombre
+         Hash Cond: (p1.nit = x1.nit)
+         Join Filter: (NOT (hashed SubPlan 2))
+         Rows Removed by Join Filter: 1328
+         Buffers: shared hit=398116
+         ->  Nested Loop  (cost=0.28..30963.65 rows=1101708 width=34) (actual time=147.964..493.868 rows=1999000 loops=1)
+               Output: p1.nit, p1.nombre, p2.nit, p2.nombre
+               Buffers: shared hit=397806
+               ->  Seq Scan on public.prov p1  (cost=0.00..38.18 rows=1818 width=17) (actual time=0.008..0.153 rows=2000 loops=1)
+                     Output: p1.nit, p1.nombre
+                     Buffers: shared hit=20
+               ->  Index Scan using pk_prov on public.prov p2  (cost=0.28..10.95 rows=606 width=17) (actual time=0.002..0.113 rows=1000 loops=2000)
+                     Output: p2.nit, p2.nombre
+                     Index Cond: (p2.nit > p1.nit)
+                     Buffers: shared hit=397786
+         ->  Hash  (cost=373.31..373.31 rows=21831 width=8) (actual time=2.900..2.900 rows=25000 loops=1)
+               Output: x1.nit, x1.codigoproducto
+               Buckets: 32768  Batches: 1  Memory Usage: 1233kB
+               Buffers: shared hit=155
+               ->  Seq Scan on public.provxprod x1  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.007..1.169 rows=25000 loops=1)
+                     Output: x1.nit, x1.codigoproducto
+                     Buffers: shared hit=155
+         SubPlan 2
+           ->  Seq Scan on public.provxprod x2  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.009..1.124 rows=25000 loops=1)
+                 Output: x2.nit, x2.codigoproducto
+                 Buffers: shared hit=155
+   ->  Hash  (cost=373.31..373.31 rows=21831 width=8) (actual time=2.930..2.931 rows=25000 loops=1)
+         Output: y2.nit, y2.codigoproducto
+         Buckets: 32768  Batches: 1  Memory Usage: 1233kB
+         Buffers: shared hit=155
+         ->  Seq Scan on public.provxprod y2  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.006..1.079 rows=25000 loops=1)
+               Output: y2.nit, y2.codigoproducto
+               Buffers: shared hit=155
+   SubPlan 4
+     ->  Seq Scan on public.provxprod y1  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.007..1.130 rows=25000 loops=1)
+           Output: y1.nit, y1.codigoproducto
+           Buffers: shared hit=155
+ Planning:
+   Buffers: shared hit=262
+ Planning Time: 0.623 ms
+ JIT:
+   Functions: 40
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 1.042 ms, Inlining 38.078 ms, Optimization 78.776 ms, Emission 49.578 ms, Total 167.474 ms
+ Execution Time: 801.607 ms
+(51 rows)
+
+Time: 802.709 ms
+EXPLAIN ANALYZE - Consulta 2
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=2630.21..2928.51 rows=5509 width=444) (actual time=17.532..17.582 rows=190 loops=1)
+   Output: c1.nit, c1.nombre, c2.nit, c2.nombre
+   Merge Cond: (c1.firma = c2.firma)
+   Join Filter: (c1.nit < c2.nit)
+   Rows Removed by Join Filter: 2190
+   Buffers: shared hit=183
+   CTE conjuntos
+     ->  GroupAggregate  (cost=2065.02..2360.64 rows=1818 width=49) (actual time=10.057..14.001 rows=2000 loops=1)
+           Output: p.nit, p.nombre, COALESCE(string_agg((x.codigoproducto)::text, ','::text ORDER BY x.codigoproducto), 'SIN_PRODUCTOS'::text)
+           Group Key: p.nit
+           Buffers: shared hit=178
+           ->  Sort  (cost=2065.02..2119.60 rows=21831 width=21) (actual time=10.053..11.104 rows=25020 loops=1)
+                 Output: p.nit, p.nombre, x.codigoproducto
+                 Sort Key: p.nit, x.codigoproducto
+                 Sort Method: quicksort  Memory: 1941kB
+                 Buffers: shared hit=178
+                 ->  Hash Right Join  (cost=60.91..491.65 rows=21831 width=21) (actual time=0.226..4.501 rows=25020 loops=1)
+                       Output: p.nit, p.nombre, x.codigoproducto
+                       Inner Unique: true
+                       Hash Cond: (x.nit = p.nit)
+                       Buffers: shared hit=175
+                       ->  Seq Scan on public.provxprod x  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.003..1.085 rows=25000 loops=1)
+                             Output: x.nit, x.codigoproducto
+                             Buffers: shared hit=155
+                       ->  Hash  (cost=38.18..38.18 rows=1818 width=17) (actual time=0.219..0.219 rows=2000 loops=1)
+                             Output: p.nit, p.nombre
+                             Buckets: 2048  Batches: 1  Memory Usage: 115kB
+                             Buffers: shared hit=20
+                             ->  Seq Scan on public.prov p  (cost=0.00..38.18 rows=1818 width=17) (actual time=0.003..0.095 rows=2000 loops=1)
+                                   Output: p.nit, p.nombre
+                                   Buffers: shared hit=20
+   ->  Sort  (cost=134.79..139.33 rows=1818 width=254) (actual time=15.505..15.587 rows=2000 loops=1)
+         Output: c1.nit, c1.nombre, c1.firma
+         Sort Key: c1.firma
+         Sort Method: quicksort  Memory: 271kB
+         Buffers: shared hit=183
+         ->  CTE Scan on conjuntos c1  (cost=0.00..36.36 rows=1818 width=254) (actual time=10.057..14.304 rows=2000 loops=1)
+               Output: c1.nit, c1.nombre, c1.firma
+               Buffers: shared hit=178
+   ->  Sort  (cost=134.79..139.33 rows=1818 width=254) (actual time=1.260..1.338 rows=2361 loops=1)
+         Output: c2.nit, c2.nombre, c2.firma
+         Sort Key: c2.firma
+         Sort Method: quicksort  Memory: 271kB
+         ->  CTE Scan on conjuntos c2  (cost=0.00..36.36 rows=1818 width=254) (actual time=0.000..0.088 rows=2000 loops=1)
+               Output: c2.nit, c2.nombre, c2.firma
+ Planning:
+   Buffers: shared hit=97
+ Planning Time: 0.202 ms
+ Execution Time: 17.639 ms
+(49 rows)
+
+Time: 18.210 ms
+EXPLAIN ANALYZE - Consulta 3
+                                                                                   QUERY PLAN                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=1390595.81..1407734.49 rows=2276 width=444) (actual time=3952.031..4028.796 rows=190 loops=1)
+   Output: t1.nit, t1.nombre, t2.nit, t2.nombre
+   Inner Unique: true
+   Hash Cond: ((t1.nit = p1.nit) AND (t2.nit = p2.nit) AND (t1.total = (count(x1.codigoproducto))))
+   Buffers: shared hit=396940, temp read=10128 written=10128
+   CTE total_productos
+     ->  HashAggregate  (cost=600.81..618.99 rows=1818 width=25) (actual time=162.438..162.605 rows=2000 loops=1)
+           Output: p.nit, p.nombre, count(x.codigoproducto)
+           Group Key: p.nit
+           Batches: 1  Memory Usage: 369kB
+           Buffers: shared hit=175
+           ->  Hash Right Join  (cost=60.91..491.65 rows=21831 width=21) (actual time=156.325..160.156 rows=25020 loops=1)
+                 Output: p.nit, p.nombre, x.codigoproducto
+                 Inner Unique: true
+                 Hash Cond: (x.nit = p.nit)
+                 Buffers: shared hit=175
+                 ->  Seq Scan on public.provxprod x  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.006..1.091 rows=25000 loops=1)
+                       Output: x.nit, x.codigoproducto
+                       Buffers: shared hit=155
+                 ->  Hash  (cost=38.18..38.18 rows=1818 width=17) (actual time=156.308..156.308 rows=2000 loops=1)
+                       Output: p.nit, p.nombre
+                       Buckets: 2048  Batches: 1  Memory Usage: 115kB
+                       Buffers: shared hit=20
+                       ->  Seq Scan on public.prov p  (cost=0.00..38.18 rows=1818 width=17) (actual time=0.004..0.103 rows=2000 loops=1)
+                             Output: p.nit, p.nombre
+                             Buffers: shared hit=20
+   ->  Merge Join  (cost=269.58..567.87 rows=5509 width=460) (actual time=163.239..194.796 rows=152720 loops=1)
+         Output: t1.nit, t1.nombre, t1.total, t2.nit, t2.nombre, t2.total
+         Merge Cond: (t1.total = t2.total)
+         Join Filter: (t1.nit < t2.nit)
+         Rows Removed by Join Filter: 154720
+         Buffers: shared hit=180
+         ->  Sort  (cost=134.79..139.33 rows=1818 width=230) (actual time=163.023..163.218 rows=2000 loops=1)
+               Output: t1.nit, t1.nombre, t1.total
+               Sort Key: t1.total
+               Sort Method: quicksort  Memory: 158kB
+               Buffers: shared hit=180
+               ->  CTE Scan on total_productos t1  (cost=0.00..36.36 rows=1818 width=230) (actual time=162.439..162.889 rows=2000 loops=1)
+                     Output: t1.nit, t1.nombre, t1.total
+                     Buffers: shared hit=175
+         ->  Sort  (cost=134.79..139.33 rows=1818 width=230) (actual time=0.204..9.610 rows=307440 loops=1)
+               Output: t2.nit, t2.nombre, t2.total
+               Sort Key: t2.total
+               Sort Method: quicksort  Memory: 158kB
+               ->  CTE Scan on total_productos t2  (cost=0.00..36.36 rows=1818 width=230) (actual time=0.000..0.084 rows=2000 loops=1)
+                     Output: t2.nit, t2.nombre, t2.total
+   ->  Hash  (cost=1315728.57..1315728.57 rows=3305124 width=16) (actual time=3788.302..3788.305 rows=55608 loops=1)
+         Output: p1.nit, p2.nit, (count(x1.codigoproducto))
+         Buckets: 262144  Batches: 32  Memory Usage: 2129kB
+         Buffers: shared hit=396760, temp read=8350 written=8567
+         ->  HashAggregate  (cost=1153482.16..1315728.57 rows=3305124 width=16) (actual time=3773.162..3780.857 rows=55608 loops=1)
+               Output: p1.nit, p2.nit, count(x1.codigoproducto)
+               Group Key: p1.nit, p2.nit
+               Planned Partitions: 64  Batches: 1  Memory Usage: 6673kB
+               Buffers: shared hit=396760, temp read=8350 written=8350
+               ->  Hash Left Join  (cost=49695.77..272887.84 rows=13229586 width=12) (actual time=626.328..3759.247 rows=55676 loops=1)
+                     Output: p1.nit, p2.nit, x1.codigoproducto
+                     Inner Unique: true
+                     Hash Cond: ((p2.nit = x2.nit) AND (x1.codigoproducto = x2.codigoproducto))
+                     Filter: ((x1.codigoproducto IS NULL) OR (x2.codigoproducto IS NOT NULL))
+                     Rows Removed by Filter: 24614514
+                     Buffers: shared hit=396760, temp read=8350 written=8350
+                     ->  Hash Right Join  (cost=48995.00..202731.73 rows=13229586 width=12) (actual time=622.800..1930.334 rows=24670190 loops=1)
+                           Output: p1.nit, p2.nit, x1.codigoproducto
+                           Hash Cond: (x1.nit = p1.nit)
+                           Buffers: shared hit=396605, temp read=8350 written=8350
+                           ->  Seq Scan on public.provxprod x1  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.023..1.607 rows=25000 loops=1)
+                                 Output: x1.codigoproducto, x1.nit
+                                 Buffers: shared hit=155
+                           ->  Hash  (cost=30919.65..30919.65 rows=1101708 width=8) (actual time=622.467..622.468 rows=1999000 loops=1)
+                                 Output: p1.nit, p2.nit
+                                 Buckets: 262144 (originally 262144)  Batches: 16 (originally 8)  Memory Usage: 6903kB
+                                 Buffers: shared hit=396450, temp written=6401
+                                 ->  Nested Loop  (cost=0.28..30919.65 rows=1101708 width=8) (actual time=0.027..423.381 rows=1999000 loops=1)
+                                       Output: p1.nit, p2.nit
+                                       Buffers: shared hit=396450
+                                       ->  Seq Scan on public.prov p1  (cost=0.00..38.18 rows=1818 width=4) (actual time=0.006..0.128 rows=2000 loops=1)
+                                             Output: p1.nit, p1.nombre
+                                             Buffers: shared hit=20
+                                       ->  Index Only Scan using pk_prov on public.prov p2  (cost=0.28..10.93 rows=606 width=4) (actual time=0.003..0.156 rows=1000 loops=2000)
+                                             Output: p2.nit
+                                             Index Cond: (p2.nit > p1.nit)
+                                             Heap Fetches: 2184894
+                                             Buffers: shared hit=396430
+                     ->  Hash  (cost=373.31..373.31 rows=21831 width=8) (actual time=3.494..3.494 rows=25000 loops=1)
+                           Output: x2.codigoproducto, x2.nit
+                           Buckets: 32768  Batches: 1  Memory Usage: 1233kB
+                           Buffers: shared hit=155
+                           ->  Seq Scan on public.provxprod x2  (cost=0.00..373.31 rows=21831 width=8) (actual time=0.005..1.305 rows=25000 loops=1)
+                                 Output: x2.codigoproducto, x2.nit
+                                 Buffers: shared hit=155
+ Planning:
+   Buffers: shared hit=120
+ Planning Time: 0.419 ms
+ JIT:
+   Functions: 60
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 0.961 ms, Inlining 3.418 ms, Optimization 87.509 ms, Emission 65.245 ms, Total 157.132 ms
+ Execution Time: 4030.356 ms
+(99 rows)
+
+Time: 4031.166 ms (00:04.031)
+EXPLAIN ANALYZE - Consulta 4
+                                                                                       QUERY PLAN                                                                                        
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.28..11253800.63 rows=275427 width=34) (actual time=61.229..19167.213 rows=190 loops=1)
+   Output: p1.nit, p1.nombre, p2.nit, p2.nombre
+   Buffers: shared hit=34839945
+   ->  Seq Scan on public.prov p1  (cost=0.00..38.18 rows=1818 width=17) (actual time=0.005..0.404 rows=2000 loops=1)
+         Output: p1.nit, p1.nombre
+         Buffers: shared hit=20
+   ->  Index Scan using pk_prov on public.prov p2  (cost=0.28..6188.67 rows=152 width=17) (actual time=9.314..9.552 rows=0 loops=2000)
+         Output: p2.nit, p2.nombre
+         Index Cond: (p2.nit > p1.nit)
+         Filter: ((NOT (SubPlan 1)) AND (NOT (SubPlan 2)))
+         Rows Removed by Filter: 999
+         Buffers: shared hit=34839925
+         SubPlan 1
+           ->  HashSetOp Except  (cost=0.29..106.10 rows=22 width=8) (actual time=0.009..0.009 rows=1 loops=1999000)
+                 Output: "*SELECT* 1".codigoproducto, (0)
+                 Buffers: shared hit=33822237
+                 ->  Append  (cost=0.29..105.99 rows=44 width=8) (actual time=0.001..0.008 rows=25 loops=1999000)
+                       Buffers: shared hit=33822237
+                       ->  Subquery Scan on "*SELECT* 1"  (cost=0.29..52.88 rows=22 width=8) (actual time=0.001..0.003 rows=12 loops=1999000)
+                             Output: "*SELECT* 1".codigoproducto, 0
+                             Buffers: shared hit=16603873
+                             ->  Index Only Scan using pk_provxprod on public.provxprod  (cost=0.29..52.66 rows=22 width=4) (actual time=0.001..0.002 rows=12 loops=1999000)
+                                   Output: provxprod.codigoproducto
+                                   Index Cond: (provxprod.nit = p1.nit)
+                                   Heap Fetches: 12708448
+                                   Buffers: shared hit=16603873
+                       ->  Subquery Scan on "*SELECT* 2"  (cost=0.29..52.88 rows=22 width=8) (actual time=0.001..0.003 rows=13 loops=1999000)
+                             Output: "*SELECT* 2".codigoproducto, 1
+                             Buffers: shared hit=17218364
+                             ->  Index Only Scan using pk_provxprod on public.provxprod provxprod_1  (cost=0.29..52.66 rows=22 width=4) (actual time=0.001..0.002 rows=13 loops=1999000)
+                                   Output: provxprod_1.codigoproducto
+                                   Index Cond: (provxprod_1.nit = p2.nit)
+                                   Heap Fetches: 13326495
+                                   Buffers: shared hit=17218364
+         SubPlan 2
+           ->  HashSetOp Except  (cost=0.29..106.10 rows=22 width=8) (actual time=0.006..0.006 rows=1 loops=39790)
+                 Output: "*SELECT* 1_1".codigoproducto, (0)
+                 Buffers: shared hit=655321
+                 ->  Append  (cost=0.29..105.99 rows=44 width=8) (actual time=0.001..0.005 rows=13 loops=39790)
+                       Buffers: shared hit=655321
+                       ->  Subquery Scan on "*SELECT* 1_1"  (cost=0.29..52.88 rows=22 width=8) (actual time=0.001..0.004 rows=13 loops=39790)
+                             Output: "*SELECT* 1_1".codigoproducto, 0
+                             Buffers: shared hit=575741
+                             ->  Index Only Scan using pk_provxprod on public.provxprod provxprod_2  (cost=0.29..52.66 rows=22 width=4) (actual time=0.001..0.003 rows=13 loops=39790)
+                                   Output: provxprod_2.codigoproducto
+                                   Index Cond: (provxprod_2.nit = p2.nit)
+                                   Heap Fetches: 500000
+                                   Buffers: shared hit=575741
+                       ->  Subquery Scan on "*SELECT* 2_1"  (cost=0.29..52.88 rows=22 width=8) (actual time=0.001..0.001 rows=0 loops=39790)
+                             Output: "*SELECT* 2_1".codigoproducto, 1
+                             Buffers: shared hit=79580
+                             ->  Index Only Scan using pk_provxprod on public.provxprod provxprod_3  (cost=0.29..52.66 rows=22 width=4) (actual time=0.000..0.000 rows=0 loops=39790)
+                                   Output: provxprod_3.codigoproducto
+                                   Index Cond: (provxprod_3.nit = p1.nit)
+                                   Heap Fetches: 0
+                                   Buffers: shared hit=79580
+ Planning Time: 0.122 ms
+ JIT:
+   Functions: 34
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 0.556 ms, Inlining 3.240 ms, Optimization 30.793 ms, Emission 27.161 ms, Total 61.750 ms
+ Execution Time: 19167.849 ms
+(62 rows)
+
+Time: 19168.277 ms (00:19.168)

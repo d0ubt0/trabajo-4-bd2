@@ -1,0 +1,131 @@
+
+0 rows deleted.
+
+Explain Plan - Consulta 1
+
+Explained.
+
+
+PLAN_TABLE_OUTPUT
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Plan hash value: 2616185684
+
+------------------------------------------------------------------
+| Id  | Operation	     | Name	    | Bytes | Cost (%CPU)|
+------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |		    | 65000 |  4472   (1)|
+|   1 |  FILTER 	     |		    |	    |		 |
+|   2 |   MERGE JOIN	     |		    | 65000 |	  8  (25)|
+|   3 |    SORT JOIN	     |		    |  6500 |	  4  (25)|
+|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  3   (0)|
+|   5 |    SORT JOIN	     |		    |  6500 |	  4  (25)|
+|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  3   (0)|
+|   7 |   INDEX RANGE SCAN   | PK_PROVXPROD |	 26 |	  2   (0)|
+|   8 |    INDEX UNIQUE SCAN | PK_PROVXPROD |	 26 |	  1   (0)|
+|   9 |   INDEX RANGE SCAN   | PK_PROVXPROD |	 26 |	  2   (0)|
+|  10 |    INDEX UNIQUE SCAN | PK_PROVXPROD |	 26 |	  1   (0)|
+------------------------------------------------------------------
+
+17 rows selected.
+
+Explain Plan - Consulta 2
+
+Explained.
+
+
+PLAN_TABLE_OUTPUT
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Plan hash value: 2238655522
+
+-----------------------------------------------------------------------------------------------------------
+| Id  | Operation				 | Name 		     | Bytes |TempSpc| Cost (%CPU)|
+-----------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT			 |			     |	4134 |	     |	 218   (1)|
+|   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |	     |		  |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D666B_22A326 |	     |	     |		  |
+|   3 |    SORT GROUP BY			 |			     |	9100 |	     |	   7  (15)|
+|   4 |     HASH JOIN OUTER			 |			     | 92820 |	     |	   6   (0)|
+|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	     |	   3   (0)|
+|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     | 26000 |	     |	   3   (0)|
+|   7 |   HASH JOIN				 |			     |	4134 |	2072K|	 211   (0)|
+|   8 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
+|   9 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D666B_22A326 | 92820 |	     |	   5   (0)|
+|  10 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
+|  11 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D666B_22A326 | 92820 |	     |	   5   (0)|
+-----------------------------------------------------------------------------------------------------------
+
+18 rows selected.
+
+Explain Plan - Consulta 3
+
+Explained.
+
+
+PLAN_TABLE_OUTPUT
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Plan hash value: 498196387
+
+---------------------------------------------------------------------------------------------------
+| Id  | Operation				 | Name 		     | Bytes | Cost (%CPU)|
+---------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT			 |			     |	 195 |	  26  (12)|
+|   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |		  |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D666C_22A326 |	     |		  |
+|   3 |    HASH GROUP BY			 |			     |	9100 |	   7  (15)|
+|   4 |     HASH JOIN OUTER			 |			     | 92820 |	   6   (0)|
+|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	   3   (0)|
+|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     | 26000 |	   3   (0)|
+|   7 |   HASH JOIN				 |			     |	 195 |	  19  (11)|
+|   8 |    HASH JOIN				 |			     |	 156 |	  10   (0)|
+|   9 |     VIEW				 |			     | 79560 |	   5   (0)|
+|  10 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D666C_22A326 | 79560 |	   5   (0)|
+|  11 |     VIEW				 |			     | 79560 |	   5   (0)|
+|  12 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D666C_22A326 | 79560 |	   5   (0)|
+|  13 |    VIEW 				 |			     |	 194K|	   9  (23)|
+|  14 |     HASH GROUP BY			 |			     |	 388K|	   9  (23)|
+|  15 |      FILTER				 |			     |	     |		  |
+|  16 |       NESTED LOOPS OUTER		 |			     |	 388K|	   8  (13)|
+|  17 |        HASH JOIN OUTER			 |			     |	 258K|	   8  (13)|
+|  18 | 	MERGE JOIN			 |			     | 13000 |	   5  (20)|
+|  19 | 	 INDEX FULL SCAN		 | PK_PROV		     |	1300 |	   2   (0)|
+|  20 | 	 SORT JOIN			 |			     |	1300 |	   3  (34)|
+|  21 | 	  INDEX FAST FULL SCAN		 | PK_PROV		     |	1300 |	   2   (0)|
+|  22 | 	TABLE ACCESS FULL		 | PROVXPROD		     | 26000 |	   3   (0)|
+|  23 |        INDEX UNIQUE SCAN		 | PK_PROVXPROD 	     |	  26 |	   0   (0)|
+---------------------------------------------------------------------------------------------------
+
+30 rows selected.
+
+Explain Plan - Consulta 4
+
+Explained.
+
+
+PLAN_TABLE_OUTPUT
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Plan hash value: 120582376
+
+------------------------------------------------------------------
+| Id  | Operation	     | Name	    | Bytes | Cost (%CPU)|
+------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |		    | 65000 |  3356  (34)|
+|   1 |  FILTER 	     |		    |	    |		 |
+|   2 |   MERGE JOIN	     |		    | 65000 |	  8  (25)|
+|   3 |    SORT JOIN	     |		    |  6500 |	  4  (25)|
+|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  3   (0)|
+|   5 |    SORT JOIN	     |		    |  6500 |	  4  (25)|
+|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  3   (0)|
+|   7 |   MINUS 	     |		    |	    |		 |
+|   8 |    SORT UNIQUE NOSORT|		    |	    |		 |
+|   9 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  10 |    SORT UNIQUE NOSORT|		    |	    |		 |
+|  11 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  12 |   MINUS 	     |		    |	    |		 |
+|  13 |    SORT UNIQUE NOSORT|		    |	    |		 |
+|  14 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  15 |    SORT UNIQUE NOSORT|		    |	    |		 |
+|  16 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+------------------------------------------------------------------
+
+23 rows selected.
+

@@ -1,0 +1,15 @@
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+
+Table created.
+
+
+Commit complete.
+

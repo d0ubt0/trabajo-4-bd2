@@ -1,0 +1,19 @@
+Proveedores cargados: 2000
+Relaciones solicitadas: 25000
+Relaciones insertadas: 25000
+
+Call completed.
+
+Elapsed: 00:00:01.27
+
+TOTAL_PROVEEDORES
+-----------------
+	     2000
+
+Elapsed: 00:00:00.00
+
+TOTAL_RELACIONES
+----------------
+	   25000
+
+Elapsed: 00:00:00.00

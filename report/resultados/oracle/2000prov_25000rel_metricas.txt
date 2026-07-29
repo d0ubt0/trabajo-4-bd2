@@ -1,0 +1,20 @@
+Consulta auxiliar para revisar SQL ejecutado recientemente por el usuario BD2.
+Las columnas ayudan a calcular: LIOs=(buffer_gets), lecturas disco=disk_reads, filas=rows_processed, fetches=fetches.
+
+SQL_ID	      EXECUTIONS    FETCHES ROWS_PROCESSED BUFFER_GETS DISK_READS ELAPSED_TIME LIOS_SOBRE_FILAS FILAS_SOBRE_FETCHES DISCO_SOBRE_LIOS
+------------- ---------- ---------- -------------- ----------- ---------- ------------ ---------------- ------------------- ----------------
+SQL_TEXTO
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+f0u9kgfh8y45v	       4	 56	       760     6275237		0      8379704	      8256.8908 	    13.5714		   0
+SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
+
+7hu456f7cgj75	       4	 56	       760     6268400		0      4545942	      8247.8947 	    13.5714		   0
+SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
+
+f0u9kgfh8y45v	       4	 56	       760     6275237		0      5203560	      8256.8908 	    13.5714		   0
+SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
+
+7hu456f7cgj75	       4	 56	       760     6268571		0      3452273	      8248.1197 	    13.5714		   0
+SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
+
+

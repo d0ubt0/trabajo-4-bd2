@@ -1,0 +1,41 @@
+services:
+  oracle-db:
+    image: gvenzl/oracle-free:23-slim
+    container_name: t4final_oracle
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: bd2
+      APP_USER_PASSWORD: bd2
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./report/resultados/oracle:/resultados
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 20s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+
+  postgres-db:
+    image: postgres:16
+    container_name: t4final_postgres
+    environment:
+      POSTGRES_DB: bd2
+      POSTGRES_USER: bd2
+      POSTGRES_PASSWORD: bd2
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./report/resultados/postgres:/resultados
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bd2 -d bd2"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  oracle-data:
+  postgres-data:
