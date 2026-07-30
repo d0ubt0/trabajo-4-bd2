@@ -254,64 +254,76 @@ Todas las consultas retornaron 190 filas en todas las muestras, porque el conjun
 
 | Muestra | Consulta | Cost | Elapsed (TKPROF) | Observaciones |
 |---|---:|---:|---:|---|
-| 100 / 1.000 | Q1 - NOT EXISTS | 4472 | 0.01s | MERGE JOIN + FILTER, INDEX RANGE SCAN en PK_PROVXPROD |
-| 100 / 1.000 | Q2 - LISTAGG | 218 | 0.00s | TEMP TABLE TRANSFORMATION, HASH JOIN a tabla temporal |
+| 100 / 1.000 | Q1 - NOT EXISTS | 4472 | 0.03s | MERGE JOIN + FILTER, INDEX RANGE SCAN en PK_PROVXPROD |
+| 100 / 1.000 | Q2 - LISTAGG | 218 | 0.02s | TEMP TABLE TRANSFORMATION, HASH JOIN a tabla temporal |
 | 100 / 1.000 | Q3 - conteos | 26 | 0.03s | TEMP TABLE TRANSFORMATION, HASH GROUP BY, NESTED LOOPS |
 | 100 / 1.000 | Q4 - MINUS | 3356 | 0.02s | MERGE JOIN + MINUS con INDEX RANGE SCAN |
-| 500 / 5.000 | Q1 - NOT EXISTS | 4472 | 0.21s | Mismo plan, costo no refleja el crecimiento de datos |
-| 500 / 5.000 | Q2 - LISTAGG | 220 | 0.00s | Plan estable, costo sube ligeramente |
-| 500 / 5.000 | Q3 - conteos | 30 | 0.71s | Mismo plan, NESTED LOOPS sobre 124.750 pares |
-| 500 / 5.000 | Q4 - MINUS | 3356 | 0.39s | Mismo plan, MINUS se ejecuta por cada par |
-| 1.000 / 10.000 | Q1 - NOT EXISTS | 4472 | 0.85s | Plan identico, tiempo real crece |
-| 1.000 / 10.000 | Q2 - LISTAGG | 224 | 0.00s | Plan estable y eficiente |
-| 1.000 / 10.000 | Q3 - conteos | 41 | 2.94s | Plan hash cambia a 2544319945 (full scan en Prov) |
-| 1.000 / 10.000 | Q4 - MINUS | 3356 | 1.58s | Mismo plan, 499.500 pares evaluados |
-| 2.000 / 25.000 | Q1 - NOT EXISTS | 4476 | 3.44s | Costo estimado apenas 4476, pero real 3.44s |
-| 2.000 / 25.000 | Q2 - LISTAGG | 234 | 0.02s | Plan estable, mas rapido que Q1/Q3/Q4 por ordenes de magnitud |
-| 2.000 / 25.000 | Q3 - conteos | 63 | 16.40s | Usa disco (7335 lecturas fisicas); alto costo real |
-| 2.000 / 25.000 | Q4 - MINUS | 3360 | 6.37s | 1.999.000 pares, 4.78M de LIOs |
+| 500 / 5.000 | Q1 - NOT EXISTS | 4472 | 0.17s | Mismo plan, costo no refleja el crecimiento de datos |
+| 500 / 5.000 | Q2 - LISTAGG | 220 | 0.02s | Plan estable, costo sube ligeramente |
+| 500 / 5.000 | Q3 - conteos | 30 | 0.39s | Mismo plan, NESTED LOOPS sobre 124.750 pares |
+| 500 / 5.000 | Q4 - MINUS | 3356 | 0.25s | Mismo plan, MINUS se ejecuta por cada par |
+| 1.000 / 10.000 | Q1 - NOT EXISTS | 4472 | 0.72s | Plan identico, tiempo real crece |
+| 1.000 / 10.000 | Q2 - LISTAGG | 224 | 0.02s | Plan estable y eficiente |
+| 1.000 / 10.000 | Q3 - conteos | 41 | 2.22s | Plan hash cambia a 2544319945 (full scan en Prov) |
+| 1.000 / 10.000 | Q4 - MINUS | 3356 | 1.03s | Mismo plan, 499.500 pares evaluados |
+| 2.000 / 25.000 | Q1 - NOT EXISTS | 4476 | 2.78s | Costo estimado apenas 4476, pero real 2.78s |
+| 2.000 / 25.000 | Q2 - LISTAGG | 234 | 0.07s | Plan estable, mas rapido que Q1/Q3/Q4 por ordenes de magnitud |
+| 2.000 / 25.000 | Q3 - conteos | 63 | 10.32s | Usa memoria/temp hash; alto costo computacional real |
+| 2.000 / 25.000 | Q4 - MINUS | 3360 | 4.08s | 1.999.000 pares evaluados |
+| 5.000 / 50.000 | Q1 - NOT EXISTS | 165K | 16.72s | Costo 165K, MERGE JOIN + INDEX RANGE SCAN, 12.5M filas |
+| 5.000 / 50.000 | Q2 - LISTAGG | 261 | 0.10s | Sigue estable, TABLA TEMPORAL + HASH JOIN |
+| 5.000 / 50.000 | Q3 - conteos | 98 | 51.46s | NESTED LOOPS OUTER masivo, 124M filas intermedias |
+| 5.000 / 50.000 | Q4 - MINUS | 4486 | 25.29s | 12.497.500 pares, 29.1M de LIOs, INDEX RANGE SCAN intensivo |
 
 ### Tabla Resumen Oracle - TKPROF
 
 | Muestra | Consulta | LIOs / filas proc. | Filas ret. / fetches | Disco / LIOs |
 |---|---:|---:|---:|---:|
-| 100 / 1.000 | Q1 | 68.34 | 13.57 | 0.0000 |
+| 100 / 1.000 | Q1 | 69.39 | 13.57 | 0.0000 |
 | 100 / 1.000 | Q2 | 0.09 | 13.57 | 0.0000 |
-| 100 / 1.000 | Q3 | 77.36 | 13.57 | 0.0000 |
-| 100 / 1.000 | Q4 | 69.43 | 13.57 | 0.0000 |
-| 500 / 5.000 | Q1 | 1.560.77 | 13.57 | 0.0000 |
+| 100 / 1.000 | Q3 | 67.57 | 13.57 | 0.0000 |
+| 100 / 1.000 | Q4 | 66.77 | 13.57 | 0.0000 |
+| 500 / 5.000 | Q1 | 811.94 | 13.57 | 0.0000 |
 | 500 / 5.000 | Q2 | 0.12 | 13.57 | 0.0000 |
-| 500 / 5.000 | Q3 | 1.894.99 | 13.57 | 0.0000 |
-| 500 / 5.000 | Q4 | 1.563.44 | 13.57 | 0.0000 |
-| 1.000 / 10.000 | Q1 | 6.197.84 | 13.57 | 0.0000 |
+| 500 / 5.000 | Q3 | 809.07 | 13.57 | 0.0000 |
+| 500 / 5.000 | Q4 | 808.63 | 13.57 | 0.0000 |
+| 1.000 / 10.000 | Q1 | 2.609.80 | 13.57 | 0.0000 |
 | 1.000 / 10.000 | Q2 | 0.20 | 13.57 | 0.0000 |
-| 1.000 / 10.000 | Q3 | 7.903.71 | 13.57 | 0.0000 |
-| 1.000 / 10.000 | Q4 | 6.201.65 | 13.57 | 0.0000 |
-| 2.000 / 25.000 | Q1 | 25.164.63 | 13.57 | 0.0000 |
+| 1.000 / 10.000 | Q3 | 6.205.53 | 13.57 | 0.0000 |
+| 1.000 / 10.000 | Q4 | 6.201.11 | 13.57 | 0.0000 |
+| 2.000 / 25.000 | Q1 | 25.282.96 | 13.57 | 0.0000 |
 | 2.000 / 25.000 | Q2 | 0.41 | 13.57 | 0.0000 |
-| 2.000 / 25.000 | Q3 | 14.038.62 | 13.57 | 0.0027 |
-| 2.000 / 25.000 | Q4 | 25.193.05 | 13.57 | 0.0000 |
+| 2.000 / 25.000 | Q3 | 6.205.53 | 13.57 | 0.0000 |
+| 2.000 / 25.000 | Q4 | 6.201.11 | 13.57 | 0.0000 |
+| 5.000 / 50.000 | Q1 | 153.430.73 | 13.57 | 0.0000 |
+| 5.000 / 50.000 | Q2 | 0.74 | 13.57 | 0.0000 |
+| 5.000 / 50.000 | Q3 | 153.069.38 | 13.57 | 0.0000 |
+| 5.000 / 50.000 | Q4 | 153.432.75 | 13.57 | 0.0000 |
 
 ### Tabla Resumen PostgreSQL
 
 | Muestra | Consulta | Execution Time | shared hit | shared read | Observaciones |
 |---|---:|---:|---:|---:|---|
-| 100 / 1.000 | Q1 | 23.293 ms | 220 | 0 | Hash Anti Join, Nested Loop, Seq Scan + Index Scan |
-| 100 / 1.000 | Q2 | 0.721 ms | 9 | 0 | Hash Join con CTE, GroupAggregate |
-| 100 / 1.000 | Q3 | 10.954 ms | 216 | 0 | Hash Join con CTE, HashAggregate, Nested Loop |
-| 100 / 1.000 | Q4 | 74.343 ms | 69.881 | 0 | Nested Loop, SubPlan con HashSetOp Except |
-| 500 / 5.000 | Q1 | 60.035 ms | 2.522 | 0 | Mismo plan; 500 x 250 filas en Nested Loop |
-| 500 / 5.000 | Q2 | 3.079 ms | 34 | 0 | Plan eficiente, firma por STRING_AGG |
-| 500 / 5.000 | Q3 | 207.707 ms | 2.499 | 0 | Hash Right Join produce 1.2M filas intermedias |
-| 500 / 5.000 | Q4 | 1.762.754 ms | 2.824.693 | 0 | SubPlan se ejecuta 124.750 veces; 2.8M buffers |
-| 1.000 / 10.000 | Q1 | 208.851 ms | 200.728 | 0 | Nested Loop produce 499.500 filas internas |
-| 1.000 / 10.000 | Q2 | 6.774 ms | 85 | 0 | Plan estable, 10.020 filas agrupadas |
-| 1.000 / 10.000 | Q3 | 951.194 ms | 199.433 | temp: 1511 | Usa disco por primera vez (hash batches: 4) |
-| 1.000 / 10.000 | Q4 | 7.946.117 ms | 15.862.912 | 0 | 499.500 iteraciones del SubPlan; 15.8M buffers |
-| 2.000 / 25.000 | Q1 | 801.607 ms | 398.426 | 0 | 1.999.000 filas en Nested Loop; JIT habilitado |
-| 2.000 / 25.000 | Q2 | 17.639 ms | 183 | 0 | Plan cambia a Merge Join (antes Hash Join) |
-| 2.000 / 25.000 | Q3 | 4.030.356 ms | 396.940 | temp: 10128 | 32 batches hash, 24.6M filas intermedias |
-| 2.000 / 25.000 | Q4 | 19.167.849 ms | 34.839.945 | 0 | 1.999.000 iteraciones, Index Only Scan, 34.8M buffers |
+| 100 / 1.000 | Q1 | 24.02 ms | 220 | 0 | Hash Anti Join, Nested Loop, Seq Scan + Index Scan |
+| 100 / 1.000 | Q2 | 1.04 ms | 9 | 0 | Hash Join con CTE, GroupAggregate |
+| 100 / 1.000 | Q3 | 7.96 ms | 216 | 0 | Hash Join con CTE, HashAggregate, Nested Loop |
+| 100 / 1.000 | Q4 | 56.40 ms | 69.643 | 0 | Nested Loop, SubPlan con HashSetOp Except |
+| 500 / 5.000 | Q1 | 50.61 ms | 2.522 | 0 | Mismo plan; 500 x 250 filas en Nested Loop |
+| 500 / 5.000 | Q2 | 3.01 ms | 34 | 0 | Plan eficiente, firma por STRING_AGG |
+| 500 / 5.000 | Q3 | 157.76 ms | 2.499 | 0 | Hash Right Join produce 1.2M filas intermedias |
+| 500 / 5.000 | Q4 | 1.397.49 ms | 2.807.566 | 0 | SubPlan se ejecuta 124.750 veces; 2.8M buffers |
+| 1.000 / 10.000 | Q1 | 164.33 ms | 200.728 | 0 | Nested Loop produce 499.500 filas internas |
+| 1.000 / 10.000 | Q2 | 5.44 ms | 85 | 0 | Plan estable, 10.020 filas agrupadas |
+| 1.000 / 10.000 | Q3 | 635.50 ms | 199.433 | temp: 1511 | Usa disco por primera vez (written: 1511 bloques) |
+| 1.000 / 10.000 | Q4 | 6.613.12 ms | 22.246.804 | 0 | 499.500 iteraciones del SubPlan; 22.2M buffers |
+| 2.000 / 25.000 | Q1 | 1.380.45 ms | 4.071.778 | 0 | 1.999.000 filas en Nested Loop; JIT habilitado |
+| 2.000 / 25.000 | Q2 | 30.92 ms | 436 | 0 | Merge Join / Hash Join con STRING_AGG |
+| 2.000 / 25.000 | Q3 | 3.684.11 ms | 4.071.458 | temp: 1803 | 32 batches hash, written: 1803 bloques |
+| 2.000 / 25.000 | Q4 | 39.791.86 ms | 99.268.558 | 0 | 1.999.000 iteraciones, Index Only Scan, 99.2M buffers |
+| 5.000 / 50.000 | Q1 | 2.752.79 ms | 133.063 | 0 | Hash Anti Join + Nested Loop, 12.5M filas, JIT habilitado |
+| 5.000 / 50.000 | Q2 | 34.99 ms | 385 | 0 | Merge Join, plan muy eficiente |
+| 5.000 / 50.000 | Q3 | 13.178.98 ms | 54.310 | temp: 74682 | Hash Join masivo, 257 batches, ~145MB en disco temporal |
+| 5.000 / 50.000 | Q4 | 54.898.74 ms | 50.550.152 | 0 | 50.5M buffers, 12.5M iteraciones HashSetOp Except |
 
 ## Comparacion Oracle Vs PostgreSQL
 
