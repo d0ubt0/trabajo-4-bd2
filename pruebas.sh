@@ -113,6 +113,12 @@ for sample in "${SAMPLES[@]}"; do
   echo "Ejecutando muestra: proveedores=${providers}, productos=${products}, relaciones=${relations}"
   run_oracle_sample "$providers" "$products" "$relations"
   run_postgres_sample "$providers" "$products" "$relations"
+  
+  echo "--- Métricas Oracle (${sample}) ---"
+  cat "$ORACLE_RESULTS/${providers}prov_${relations}rel_metricas.txt" | grep -v 'SQL>' | grep -v 'SET ' | head -n 20
+  
+  echo "--- Métricas PostgreSQL (${sample}) ---"
+  cat "$POSTGRES_RESULTS/${providers}prov_${relations}rel_metricas.txt"
 done
 
 echo "Pruebas finalizadas."
