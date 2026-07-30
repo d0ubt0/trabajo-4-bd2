@@ -159,6 +159,10 @@ Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzar
 2.000 / 25.000 & Q2 - LISTAGG & 234 & 0.02s & Plan estable, más rápido que Q1/Q3/Q4 por órdenes de magnitud \\ \hline
 2.000 / 25.000 & Q3 - conteos & 63 & 16.40s & Usa disco (7335 lecturas físicas); alto costo real \\ \hline
 2.000 / 25.000 & Q4 - MINUS & 3360 & 6.37s & 1.999.000 pares, 4.78M de LIOs \\ \hline
+5.000 / 50.000 & Q1 - NOT EXISTS & 165K & 22.24s & Costo 165K, MERGE JOIN + INDEX RANGE SCAN, 12.5M filas \\ \hline
+5.000 / 50.000 & Q2 - LISTAGG & 261 & 0.05s & Sigue estable, TABLA TEMPORAL + HASH JOIN \\ \hline
+5.000 / 50.000 & Q3 - conteos & 98 & 84.02s & NESTED LOOPS OUTER masivo, 124M filas intermedias, 43.500 lecturas físicas \\ \hline
+5.000 / 50.000 & Q4 - MINUS & 4486 & 40.24s & 12.497.500 pares, 29M de LIOs, INDEX RANGE SCAN intensivo \\ \hline
 \end{tabular}%
 }
 \end{table}
@@ -186,6 +190,10 @@ Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzar
 2.000 / 25.000 & Q2 & 0.41 & 13.57 & 0.0000 \\ \hline
 2.000 / 25.000 & Q3 & 14,038.62 & 13.57 & 0.0027 \\ \hline
 2.000 / 25.000 & Q4 & 25,193.05 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q1 & 153,069.38 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q2 & 0.74 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q3 & 34,195.10 & 13.57 & 0.0067 \\ \hline
+5.000 / 50.000 & Q4 & 153,430.73 & 13.57 & 0.0000 \\ \hline
 \end{tabular}%
 }
 \end{table}
@@ -213,17 +221,21 @@ Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzar
 2.000 / 25.000 & Q2 & 17.639 ms & 183 & 0 & Plan cambia a Merge Join (antes Hash Join) \\ \hline
 2.000 / 25.000 & Q3 & 4.030.356 ms & 396.940 & temp: 10128 & 32 batches hash, 24.6M filas intermedias \\ \hline
 2.000 / 25.000 & Q4 & 19.167.849 ms & 34.839.945 & 0 & 1.999.000 iteraciones, Index Only Scan, 34.8M buffers \\ \hline
+5.000 / 50.000 & Q1 & 3.537 ms & 133.063 & 0 & Hash Anti Join + Nested Loop, 12.5M filas, JIT habilitado \\ \hline
+5.000 / 50.000 & Q2 & 30.146 ms & 385 & 0 & Merge Join, plan eficiente \\ \hline
+5.000 / 50.000 & Q3 & 21.168 ms & 54.310 & temp: 72644 & Hash Join masivo, 257 batches, 16MB en disco \\ \hline
+5.000 / 50.000 & Q4 & 80.710 ms & 50.550.152 & 0 & 50.5M buffers, 12.5M iteraciones HashSetOp Except \\ \hline
 \end{tabular}%
 }
 \end{table}
 
 \subsection{Comparación de Rendimiento (Oracle vs PostgreSQL)}
 \subsubsection{Tiempo de ejecución}
-La consulta más rápida fue Q2 (\texttt{LISTAGG} / \texttt{STRING\_AGG}). Se mantuvo muy rápida (menor a 20 ms en Postgres y menor a 0.02s en Oracle) a pesar del crecimiento de la muestra.
-La consulta más lenta fue Q4 (\texttt{MINUS} / \texttt{EXCEPT}), llegando a 19.17s en PostgreSQL con 2.000 proveedores.
+La consulta más rápida fue Q2 (\texttt{LISTAGG} / \texttt{STRING\_AGG}). Se mantuvo muy rápida (30 ms en Postgres y 0.05s en Oracle incluso con 5.000 proveedores) a pesar del crecimiento de la muestra.
+La consulta más lenta fue Q4 (\texttt{MINUS} / \texttt{EXCEPT}), llegando a 80.71s en PostgreSQL con 5.000 proveedores. En Oracle alcanzó 40.24s para la misma muestra.
 
 \subsubsection{Lecturas lógicas y Planes de Ejecución}
-La enorme diferencia de rendimiento en Q4 (donde PostgreSQL procesó 34.8M de \textit{shared hits} vs Oracle con 4.78M \textit{LIOs}) radica en el plan de ejecución:
+La enorme diferencia de rendimiento en Q4 (donde PostgreSQL procesó 50.5M de \textit{shared hits} con 5.000 proveedores vs Oracle con 29.1M \textit{LIOs}) radica en el plan de ejecución:
 \begin{itemize}
     \item \textbf{PostgreSQL} anida el \texttt{EXCEPT} en un \textit{SubPlan} evaluado exhaustivamente por cada pareja.
     \item \textbf{Oracle} utiliza un \texttt{INDEX RANGE SCAN} dentro de la operación \texttt{MINUS}. Esto ocurre porque Oracle aprovecha el índice compuesto (B-Tree) generado automáticamente en la Llave Primaria \texttt{ProvxProd(nit, codigoProducto)}. Al ser \texttt{nit} el primer atributo del índice, la base de datos puede resolver el \texttt{MINUS} mediante un \textit{Index Only Scan}, sin necesidad de acceder a los bloques de la tabla.
@@ -231,10 +243,10 @@ La enorme diferencia de rendimiento en Q4 (donde PostgreSQL procesó 34.8M de \t
 
 \section{Conclusiones}
 \begin{enumerate}
-    \item \textbf{La consulta más eficiente} fue Q2 (Firma con agregación de strings). Transformar un problema de conjuntos relacionales a un problema escalar evita el crecimiento cuadrático. Sin embargo, tiene la limitación de la longitud de bytes en Oracle.
-    \item \textbf{Operadores de conjuntos (MINUS / EXCEPT)}: Fueron los enfoques más intuitivos, pero los de peor rendimiento.
-    \item \textbf{El crecimiento cuadrático}: El problema base implica comparar combinaciones de $N$ elementos ($N \times (N-1) / 2$). Q1, Q3 y Q4 escalan muy mal con grandes volúmenes.
-    \item \textbf{Oracle vs PostgreSQL}: Oracle supo aprovechar sus índices por defecto de manera más eficiente en los operadores \texttt{MINUS}, mientras que PostgreSQL fue superior en la manipulación rápida de \texttt{STRING\_AGG}.
+    \item \textbf{La consulta más eficiente} fue Q2 (Firma con agregación de strings). Transformar un problema de conjuntos relacionales a un problema escalar evita el crecimiento cuadrático. Incluso con 5.000 proveedores se mantuvo por debajo de 0.05s en Oracle y 31 ms en PostgreSQL. Sin embargo, tiene la limitación de la longitud de bytes en Oracle.
+    \item \textbf{Operadores de conjuntos (MINUS / EXCEPT)}: Fueron los enfoques más intuitivos, pero los de peor rendimiento. En PostgreSQL con 5.000 proveedores alcanzó 80.71s debido a la ejecución anidada del EXCEPT.
+    \item \textbf{El crecimiento cuadrático}: El problema base implica comparar combinaciones de $N$ elementos ($N \times (N-1) / 2$). Q1, Q3 y Q4 escalan muy mal con grandes volúmenes. Con 5.000 proveedores se evalúan 12.5M de pares.
+    \item \textbf{Oracle vs PostgreSQL}: Oracle supo aprovechar sus índices por defecto de manera más eficiente en los operadores \texttt{MINUS} (40.24s vs 80.71s en la muestra más grande), mientras que PostgreSQL fue superior en la manipulación rápida de \texttt{STRING\_AGG}.
 \end{enumerate}
 
 \section{Evidencias en PostgreSQL (Pantallazos)}
