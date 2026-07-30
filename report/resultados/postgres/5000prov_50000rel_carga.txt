@@ -1,0 +1,18 @@
+Timing is on.
+psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Proveedores cargados: 5000
+psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Relaciones solicitadas: 50000
+psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Relaciones insertadas: 50000
+CALL
+Time: 605.424 ms
+ total_proveedores 
+-------------------
+              5000
+(1 row)
+
+Time: 0.508 ms
+ total_relaciones 
+------------------
+            50000
+(1 row)
+
+Time: 2.800 ms

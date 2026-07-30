@@ -1779,7 +1779,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.72
+Elapsed: 00:00:00.73
 Consulta 4: operadores de conjuntos MINUS
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -2369,7 +2369,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.40
+Elapsed: 00:00:00.41
 
 Session altered.
 

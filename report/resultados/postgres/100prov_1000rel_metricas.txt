@@ -6,6 +6,6 @@ Actual rows muestra filas procesadas/retornadas segun cada nodo del plan.
   relname  | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
 -----------+----------------+---------------+---------------+--------------
  prov      |              0 |          2704 |             2 |         1808
- provxprod |              0 |         88297 |             1 |        57359
+ provxprod |              0 |         88059 |             1 |        57122
 (2 rows)
 

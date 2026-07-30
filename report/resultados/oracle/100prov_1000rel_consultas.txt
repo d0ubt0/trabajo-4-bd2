@@ -2357,4 +2357,4 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.01
+Elapsed: 00:00:00.02

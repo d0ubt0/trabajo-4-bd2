@@ -13,16 +13,16 @@ Plan hash value: 2616185684
 ------------------------------------------------------------------
 | Id  | Operation	     | Name	    | Bytes | Cost (%CPU)|
 ------------------------------------------------------------------
-|   0 | SELECT STATEMENT     |		    | 65000 |  4476   (1)|
+|   0 | SELECT STATEMENT     |		    | 65000 |	165K  (1)|
 |   1 |  FILTER 	     |		    |	    |		 |
-|   2 |   MERGE JOIN	     |		    | 65000 |	 12  (17)|
-|   3 |    SORT JOIN	     |		    |  6500 |	  6  (17)|
-|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  5   (0)|
-|   5 |    SORT JOIN	     |		    |  6500 |	  6  (17)|
-|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  5   (0)|
-|   7 |   INDEX RANGE SCAN   | PK_PROVXPROD |	 26 |	  2   (0)|
+|   2 |   MERGE JOIN	     |		    | 65000 |	 16  (13)|
+|   3 |    SORT JOIN	     |		    |  6500 |	  8  (13)|
+|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  7   (0)|
+|   5 |    SORT JOIN	     |		    |  6500 |	  8  (13)|
+|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  7   (0)|
+|   7 |   INDEX RANGE SCAN   | PK_PROVXPROD |	676 |	  2   (0)|
 |   8 |    INDEX UNIQUE SCAN | PK_PROVXPROD |	 26 |	  1   (0)|
-|   9 |   INDEX RANGE SCAN   | PK_PROVXPROD |	 26 |	  2   (0)|
+|   9 |   INDEX RANGE SCAN   | PK_PROVXPROD |	676 |	  2   (0)|
 |  10 |    INDEX UNIQUE SCAN | PK_PROVXPROD |	 26 |	  1   (0)|
 ------------------------------------------------------------------
 
@@ -40,18 +40,18 @@ Plan hash value: 2238655522
 -----------------------------------------------------------------------------------------------------------
 | Id  | Operation				 | Name 		     | Bytes |TempSpc| Cost (%CPU)|
 -----------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT			 |			     |	4134 |	     |	 234   (1)|
+|   0 | SELECT STATEMENT			 |			     |	4134 |	     |	 261   (1)|
 |   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |	     |		  |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D669B_230752 |	     |	     |		  |
-|   3 |    SORT GROUP BY			 |			     |	9100 |	     |	  23   (5)|
-|   4 |     HASH JOIN OUTER			 |			     | 92820 |	     |	  22   (0)|
-|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	     |	   5   (0)|
-|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     | 26000 |	     |	  17   (0)|
-|   7 |   HASH JOIN				 |			     |	4134 |	2072K|	 211   (0)|
-|   8 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
-|   9 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D669B_230752 | 92820 |	     |	   5   (0)|
-|  10 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
-|  11 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D669B_230752 | 92820 |	     |	   5   (0)|
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D66B1_230752 |	     |	     |		  |
+|   3 |    SORT GROUP BY			 |			     |	9100 |	     |	  40   (3)|
+|   4 |     HASH JOIN OUTER			 |			     | 96278 |	     |	  39   (0)|
+|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	     |	   7   (0)|
+|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     |	1336K|	     |	  32   (0)|
+|   7 |   HASH JOIN				 |			     |	4134 |	2152K|	 221   (0)|
+|   8 |    VIEW 				 |			     |	2135K|	     |	   6   (0)|
+|   9 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D66B1_230752 | 96278 |	     |	   6   (0)|
+|  10 |    VIEW 				 |			     |	2135K|	     |	   6   (0)|
+|  11 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D66B1_230752 | 96278 |	     |	   6   (0)|
 -----------------------------------------------------------------------------------------------------------
 
 18 rows selected.
@@ -63,35 +63,35 @@ Explained.
 
 PLAN_TABLE_OUTPUT
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Plan hash value: 2544319945
+Plan hash value: 3380468438
 
 ---------------------------------------------------------------------------------------------------
 | Id  | Operation				 | Name 		     | Bytes | Cost (%CPU)|
 ---------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT			 |			     |	 195 |	  63   (7)|
+|   0 | SELECT STATEMENT			 |			     |	 195 |	  98   (6)|
 |   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |		  |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D669C_230752 |	     |		  |
-|   3 |    HASH GROUP BY			 |			     |	9100 |	  23   (5)|
-|   4 |     HASH JOIN OUTER			 |			     | 92820 |	  22   (0)|
-|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	   5   (0)|
-|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     | 26000 |	  17   (0)|
-|   7 |   HASH JOIN				 |			     |	 195 |	  40   (8)|
-|   8 |    HASH JOIN				 |			     |	 156 |	  10   (0)|
-|   9 |     VIEW				 |			     | 79560 |	   5   (0)|
-|  10 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D669C_230752 | 79560 |	   5   (0)|
-|  11 |     VIEW				 |			     | 79560 |	   5   (0)|
-|  12 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D669C_230752 | 79560 |	   5   (0)|
-|  13 |    VIEW 				 |			     |	 194K|	  30  (10)|
-|  14 |     HASH GROUP BY			 |			     |	 388K|	  30  (10)|
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D66B2_230752 |	     |		  |
+|   3 |    HASH GROUP BY			 |			     |	9100 |	  40   (3)|
+|   4 |     HASH JOIN OUTER			 |			     | 96278 |	  39   (0)|
+|   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	   7   (0)|
+|   6 |      TABLE ACCESS FULL			 | PROVXPROD		     |	1336K|	  32   (0)|
+|   7 |   HASH JOIN				 |			     |	 195 |	  58   (7)|
+|   8 |    HASH JOIN				 |			     |	 156 |	  12   (0)|
+|   9 |     VIEW				 |			     | 82524 |	   6   (0)|
+|  10 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D66B2_230752 | 82524 |	   6   (0)|
+|  11 |     VIEW				 |			     | 82524 |	   6   (0)|
+|  12 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D66B2_230752 | 82524 |	   6   (0)|
+|  13 |    VIEW 				 |			     |	 201K|	  46   (9)|
+|  14 |     HASH GROUP BY			 |			     |	 403K|	  46   (9)|
 |  15 |      FILTER				 |			     |	     |		  |
-|  16 |       NESTED LOOPS OUTER		 |			     |	 388K|	  29   (7)|
-|  17 |        HASH JOIN OUTER			 |			     |	 258K|	  29   (7)|
+|  16 |       NESTED LOOPS OUTER		 |			     |	 403K|	  45   (7)|
+|  17 |        HASH JOIN OUTER			 |			     |	 268K|	  44   (5)|
 |  18 | 	MERGE JOIN			 |			     | 13000 |	  12  (17)|
 |  19 | 	 SORT JOIN			 |			     |	1300 |	   6  (17)|
-|  20 | 	  TABLE ACCESS FULL		 | PROV 		     |	1300 |	   5   (0)|
+|  20 | 	  INDEX FAST FULL SCAN		 | PK_PROV		     |	1300 |	   5   (0)|
 |  21 | 	 SORT JOIN			 |			     |	1300 |	   6  (17)|
-|  22 | 	  TABLE ACCESS FULL		 | PROV 		     |	1300 |	   5   (0)|
-|  23 | 	TABLE ACCESS FULL		 | PROVXPROD		     | 26000 |	  17   (0)|
+|  22 | 	  INDEX FAST FULL SCAN		 | PK_PROV		     |	1300 |	   5   (0)|
+|  23 | 	TABLE ACCESS FULL		 | PROVXPROD		     |	1336K|	  32   (0)|
 |  24 |        INDEX UNIQUE SCAN		 | PK_PROVXPROD 	     |	  26 |	   0   (0)|
 ---------------------------------------------------------------------------------------------------
 
@@ -109,23 +109,23 @@ Plan hash value: 120582376
 ------------------------------------------------------------------
 | Id  | Operation	     | Name	    | Bytes | Cost (%CPU)|
 ------------------------------------------------------------------
-|   0 | SELECT STATEMENT     |		    | 65000 |  3360  (34)|
+|   0 | SELECT STATEMENT     |		    | 65000 |  4486  (26)|
 |   1 |  FILTER 	     |		    |	    |		 |
-|   2 |   MERGE JOIN	     |		    | 65000 |	 12  (17)|
-|   3 |    SORT JOIN	     |		    |  6500 |	  6  (17)|
-|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  5   (0)|
-|   5 |    SORT JOIN	     |		    |  6500 |	  6  (17)|
-|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  5   (0)|
+|   2 |   MERGE JOIN	     |		    | 65000 |	 16  (13)|
+|   3 |    SORT JOIN	     |		    |  6500 |	  8  (13)|
+|   4 |     TABLE ACCESS FULL| PROV	    |  6500 |	  7   (0)|
+|   5 |    SORT JOIN	     |		    |  6500 |	  8  (13)|
+|   6 |     TABLE ACCESS FULL| PROV	    |  6500 |	  7   (0)|
 |   7 |   MINUS 	     |		    |	    |		 |
 |   8 |    SORT UNIQUE NOSORT|		    |	    |		 |
-|   9 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|   9 |     INDEX RANGE SCAN | PK_PROVXPROD | 13676 |	  3   (0)|
 |  10 |    SORT UNIQUE NOSORT|		    |	    |		 |
-|  11 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  11 |     INDEX RANGE SCAN | PK_PROVXPROD | 13676 |	  3   (0)|
 |  12 |   MINUS 	     |		    |	    |		 |
 |  13 |    SORT UNIQUE NOSORT|		    |	    |		 |
-|  14 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  14 |     INDEX RANGE SCAN | PK_PROVXPROD | 13676 |	  3   (0)|
 |  15 |    SORT UNIQUE NOSORT|		    |	    |		 |
-|  16 |     INDEX RANGE SCAN | PK_PROVXPROD |	 26 |	  2   (0)|
+|  16 |     INDEX RANGE SCAN | PK_PROVXPROD | 13676 |	  3   (0)|
 ------------------------------------------------------------------
 
 23 rows selected.

@@ -12,16 +12,13 @@ SAMPLES=(
   "500 5000 5000"
   "1000 10000 10000"
   "2000 20000 25000"
+  "5000 50000 50000"
 )
-
-if [[ "${RUN_LARGE:-0}" == "1" ]]; then
-  SAMPLES+=("5000 50000 50000")
-fi
 
 run_oracle_sql() {
   local script_path="$1"
   local output_path="$2"
-  docker exec -i t4final_oracle sqlplus -s bd2/bd2@localhost/FREEPDB1 @"$script_path" > "$output_path"
+  { echo "@$script_path"; echo "EXIT;"; } | docker exec -i t4final_oracle sqlplus -s bd2/bd2@localhost/FREEPDB1 > "$output_path"
 }
 
 run_postgres_sql() {
@@ -54,7 +51,7 @@ EXIT
 SQL
 
   docker cp "$load_file" t4final_oracle:/tmp/trabajo/sql/oracle/load_sample.sql
-  docker exec -i t4final_oracle sqlplus -s bd2/bd2@localhost/FREEPDB1 @/tmp/trabajo/sql/oracle/load_sample.sql > "$ORACLE_RESULTS/${sample_name}_carga.txt"
+  run_oracle_sql "/tmp/trabajo/sql/oracle/load_sample.sql" "$ORACLE_RESULTS/${sample_name}_carga.txt"
 
   run_oracle_sql "/tmp/trabajo/sql/oracle/03_consultas.sql" "$ORACLE_RESULTS/${sample_name}_consultas.txt"
   run_oracle_sql "/tmp/trabajo/sql/oracle/04_explain_plan.sql" "$ORACLE_RESULTS/${sample_name}_explain_plan.txt"
@@ -120,6 +117,8 @@ for sample in "${SAMPLES[@]}"; do
   echo "--- Métricas PostgreSQL (${sample}) ---"
   cat "$POSTGRES_RESULTS/${providers}prov_${relations}rel_metricas.txt"
 done
+
+python3 "$ROOT_DIR/scripts/resumen_tiempos.py"
 
 echo "Pruebas finalizadas."
 echo "Resultados Oracle: $ORACLE_RESULTS"

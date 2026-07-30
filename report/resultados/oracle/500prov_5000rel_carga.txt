@@ -4,7 +4,7 @@ Relaciones insertadas: 5000
 
 Call completed.
 
-Elapsed: 00:00:00.30
+Elapsed: 00:00:00.34
 
 TOTAL_PROVEEDORES
 -----------------

@@ -3,16 +3,16 @@ psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Proveedores cargados:
 psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Relaciones solicitadas: 5000
 psql:/tmp/trabajo/sql/postgres/load_sample.sql:2: NOTICE:  Relaciones insertadas: 5000
 CALL
-Time: 61.151 ms
+Time: 59.317 ms
  total_proveedores 
 -------------------
                500
 (1 row)
 
-Time: 0.199 ms
+Time: 0.205 ms
  total_relaciones 
 ------------------
              5000
 (1 row)
 
-Time: 0.365 ms
+Time: 0.359 ms

@@ -1,9 +1,9 @@
 
-TKPROF: Release 23.0.0.0.0 - Development on Wed Jul 29 06:09:00 2026
+TKPROF: Release 23.0.0.0.0 - Development on Thu Jul 30 06:00:27 2026
 
 Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
 
-Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_3821_BD2_TRABAJO4.trc
+Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_5737_BD2_TRABAJO4.trc
 Trace file version:
    Version 23.26.2.0.0
    Build label:    RDBMS_23.26.2.0.0DBRU_LINUX.X64_260427
@@ -48,9 +48,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.01       0.01          0          5          0           0
 Execute      1      0.00       0.00          0         14          2           0
-Fetch       14      0.02       0.02          0      14680          0         190
+Fetch       14      0.02       0.02          0      14510          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.03       0.03          0      14699          2         190
+total       16      0.03       0.04          0      14529          2         190
 
 Misses in library cache during parse: 1
 Optimizer mode: ALL_ROWS
@@ -59,32 +59,32 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  TEMP TABLE TRANSFORMATION  (cr=14694 pr=0 pw=0 time=26841 us starts=1 direct read=0 direct write=0)
-         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D666E_22A326 (cr=14 pr=0 pw=0 time=498 us starts=1 direct read=0 direct write=0)
-       100        100        100    HASH GROUP BY (cr=14 pr=0 pw=0 time=410 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
-      1020       1020       1020     HASH JOIN OUTER (cr=14 pr=0 pw=0 time=311 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
-       100        100        100      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=45 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      1000       1000       1000      TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=24 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-       190        190        190   HASH JOIN  (cr=14680 pr=0 pw=0 time=26283 us starts=1 direct read=0 direct write=0 cost=19 size=195 card=1)
-       461        461        461    HASH JOIN  (cr=0 pr=0 pw=0 time=209 us starts=1 direct read=0 direct write=0 cost=10 size=156 card=1)
+       190        190        190  TEMP TABLE TRANSFORMATION  (cr=14524 pr=0 pw=0 time=27547 us starts=1 direct read=0 direct write=0)
+         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D668B_230752 (cr=14 pr=0 pw=0 time=501 us starts=1 direct read=0 direct write=0)
+       100        100        100    HASH GROUP BY (cr=14 pr=0 pw=0 time=413 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
+      1020       1020       1020     HASH JOIN OUTER (cr=14 pr=0 pw=0 time=309 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
+       100        100        100      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=33 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      1000       1000       1000      TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=31 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+       190        190        190   HASH JOIN  (cr=14510 pr=0 pw=0 time=26996 us starts=1 direct read=0 direct write=0 cost=19 size=195 card=1)
+       437        437        437    HASH JOIN  (cr=0 pr=0 pw=0 time=170 us starts=1 direct read=0 direct write=0 cost=10 size=156 card=1)
        100        100        100     VIEW  (cr=0 pr=0 pw=0 time=7 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-       100        100        100      TABLE ACCESS FULL SYS_TEMP_0FD9D666E_22A326 (cr=0 pr=0 pw=0 time=7 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-       100        100        100     VIEW  (cr=0 pr=0 pw=0 time=5 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-       100        100        100      TABLE ACCESS FULL SYS_TEMP_0FD9D666E_22A326 (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-      2217       2217       2217    VIEW  (cr=14680 pr=0 pw=0 time=25430 us starts=1 direct read=0 direct write=0 cost=9 size=198900 card=5100)
-      2217       2217       2217     HASH GROUP BY (cr=14680 pr=0 pw=0 time=25305 us starts=1 direct read=0 direct write=0 cost=9 size=397800 card=5100)
-      2251       2251       2251      FILTER  (cr=14680 pr=0 pw=0 time=24534 us starts=1 direct read=0 direct write=0)
-     39987      39987      39987       NESTED LOOPS OUTER (cr=14680 pr=0 pw=0 time=22606 us starts=1 direct read=0 direct write=0 cost=8 size=397800 card=5100)
-     39987      39987      39987        HASH JOIN OUTER (cr=12 pr=0 pw=0 time=6566 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
-      4950       4950       4950         NESTED LOOPS OUTER (cr=5 pr=0 pw=0 time=1233 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
-      4950       4950       4950          STATISTICS COLLECTOR  (cr=5 pr=0 pw=0 time=935 us starts=1 direct read=0 direct write=0)
-      4950       4950       4950           MERGE JOIN  (cr=5 pr=0 pw=0 time=672 us starts=1 direct read=0 direct write=0 cost=5 size=13000 card=500)
-       100        100        100            INDEX FULL SCAN PK_PROV (cr=1 pr=0 pw=0 time=16 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73130)
-      4950       4950       4950            SORT JOIN (cr=4 pr=0 pw=0 time=350 us starts=100 direct read=0 direct write=0 cost=3 size=1300 card=100)
-       100        100        100             INDEX FAST FULL SCAN PK_PROV (cr=4 pr=0 pw=0 time=29 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73130)
-         0          0          0          INDEX RANGE SCAN PK_PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=5 size=260 card=10)(object id 73133)
-      1000       1000       1000         TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=251 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-       461        461        461        INDEX UNIQUE SCAN PK_PROVXPROD (cr=14668 pr=0 pw=0 time=10684 us starts=39987 direct read=0 direct write=0 cost=0 size=26 card=1)(object id 73133)
+       100        100        100      TABLE ACCESS FULL SYS_TEMP_0FD9D668B_230752 (cr=0 pr=0 pw=0 time=6 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+       100        100        100     VIEW  (cr=0 pr=0 pw=0 time=6 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+       100        100        100      TABLE ACCESS FULL SYS_TEMP_0FD9D668B_230752 (cr=0 pr=0 pw=0 time=5 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+      2229       2229       2229    VIEW  (cr=14510 pr=0 pw=0 time=26136 us starts=1 direct read=0 direct write=0 cost=9 size=198900 card=5100)
+      2229       2229       2229     HASH GROUP BY (cr=14510 pr=0 pw=0 time=25990 us starts=1 direct read=0 direct write=0 cost=9 size=397800 card=5100)
+      2256       2256       2256      FILTER  (cr=14510 pr=0 pw=0 time=25163 us starts=1 direct read=0 direct write=0)
+     41221      41221      41221       NESTED LOOPS OUTER (cr=14510 pr=0 pw=0 time=23136 us starts=1 direct read=0 direct write=0 cost=8 size=397800 card=5100)
+     41221      41221      41221        HASH JOIN OUTER (cr=12 pr=0 pw=0 time=6727 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
+      4950       4950       4950         NESTED LOOPS OUTER (cr=5 pr=0 pw=0 time=1242 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
+      4950       4950       4950          STATISTICS COLLECTOR  (cr=5 pr=0 pw=0 time=966 us starts=1 direct read=0 direct write=0)
+      4950       4950       4950           MERGE JOIN  (cr=5 pr=0 pw=0 time=664 us starts=1 direct read=0 direct write=0 cost=5 size=13000 card=500)
+       100        100        100            INDEX FULL SCAN PK_PROV (cr=1 pr=0 pw=0 time=18 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73195)
+      4950       4950       4950            SORT JOIN (cr=4 pr=0 pw=0 time=363 us starts=100 direct read=0 direct write=0 cost=3 size=1300 card=100)
+       100        100        100             INDEX FAST FULL SCAN PK_PROV (cr=4 pr=0 pw=0 time=40 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73195)
+         0          0          0          INDEX RANGE SCAN PK_PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=5 size=260 card=10)(object id 73198)
+      1000       1000       1000         TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=255 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+       466        466        466        INDEX UNIQUE SCAN PK_PROVXPROD (cr=14498 pr=0 pw=0 time=10956 us starts=41221 direct read=0 direct write=0 cost=0 size=26 card=1)(object id 73198)
 
 ********************************************************************************
 
@@ -109,9 +109,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.00       0.00          0          5          0           0
 Execute      1      0.00       0.00          0          0          0           0
-Fetch       14      0.01       0.01          0      13186          0         190
+Fetch       14      0.01       0.01          0      13179          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.01       0.02          0      13191          0         190
+total       16      0.01       0.02          0      13184          0         190
 
 Misses in library cache during parse: 1
 Optimizer mode: ALL_ROWS
@@ -120,22 +120,22 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  FILTER  (cr=13186 pr=0 pw=0 time=17044 us starts=1 direct read=0 direct write=0)
-      4950       4950       4950   MERGE JOIN  (cr=14 pr=0 pw=0 time=946 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
-       100        100        100    SORT JOIN (cr=7 pr=0 pw=0 time=60 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=26 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      4950       4950       4950    SORT JOIN (cr=7 pr=0 pw=0 time=574 us starts=100 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=8 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      3160       3160       3160   MINUS  (cr=9298 pr=0 pw=0 time=9728 us starts=4950 direct read=0 direct write=0)
-      3209       3209       3209    SORT UNIQUE NOSORT (cr=5083 pr=0 pw=0 time=4659 us starts=4950 direct read=0 direct write=0)
-      6369       6369       6369     INDEX RANGE SCAN PK_PROVXPROD (cr=5083 pr=0 pw=0 time=3102 us starts=4950 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-      6867       6867       6867    SORT UNIQUE NOSORT (cr=4215 pr=0 pw=0 time=3751 us starts=3160 direct read=0 direct write=0)
-     10026      10026      10026     INDEX RANGE SCAN PK_PROVXPROD (cr=4215 pr=0 pw=0 time=2403 us starts=3160 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-      1600       1600       1600   MINUS  (cr=3874 pr=0 pw=0 time=3685 us starts=1790 direct read=0 direct write=0)
-      1600       1600       1600    SORT UNIQUE NOSORT (cr=2269 pr=0 pw=0 time=1944 us starts=1790 direct read=0 direct write=0)
-      3200       3200       3200     INDEX RANGE SCAN PK_PROVXPROD (cr=2269 pr=0 pw=0 time=1354 us starts=1790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-         0          0          0    SORT UNIQUE NOSORT (cr=1605 pr=0 pw=0 time=1277 us starts=1600 direct read=0 direct write=0)
-         0          0          0     INDEX RANGE SCAN PK_PROVXPROD (cr=1605 pr=0 pw=0 time=778 us starts=1600 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
+       190        190        190  FILTER  (cr=13179 pr=0 pw=0 time=17979 us starts=1 direct read=0 direct write=0)
+      4950       4950       4950   MERGE JOIN  (cr=14 pr=0 pw=0 time=970 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
+       100        100        100    SORT JOIN (cr=7 pr=0 pw=0 time=70 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=36 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      4950       4950       4950    SORT JOIN (cr=7 pr=0 pw=0 time=600 us starts=100 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      3160       3160       3160   MINUS  (cr=9291 pr=0 pw=0 time=10596 us starts=4950 direct read=0 direct write=0)
+      3203       3203       3203    SORT UNIQUE NOSORT (cr=5088 pr=0 pw=0 time=5312 us starts=4950 direct read=0 direct write=0)
+      6363       6363       6363     INDEX RANGE SCAN PK_PROVXPROD (cr=5088 pr=0 pw=0 time=3664 us starts=4950 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+      6248       6248       6248    SORT UNIQUE NOSORT (cr=4203 pr=0 pw=0 time=3953 us starts=3160 direct read=0 direct write=0)
+      9408       9408       9408     INDEX RANGE SCAN PK_PROVXPROD (cr=4203 pr=0 pw=0 time=2568 us starts=3160 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+      1600       1600       1600   MINUS  (cr=3874 pr=0 pw=0 time=3661 us starts=1790 direct read=0 direct write=0)
+      1600       1600       1600    SORT UNIQUE NOSORT (cr=2269 pr=0 pw=0 time=1935 us starts=1790 direct read=0 direct write=0)
+      3200       3200       3200     INDEX RANGE SCAN PK_PROVXPROD (cr=2269 pr=0 pw=0 time=1294 us starts=1790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+         0          0          0    SORT UNIQUE NOSORT (cr=1605 pr=0 pw=0 time=1227 us starts=1600 direct read=0 direct write=0)
+         0          0          0     INDEX RANGE SCAN PK_PROVXPROD (cr=1605 pr=0 pw=0 time=751 us starts=1600 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
 
 ********************************************************************************
 
@@ -172,9 +172,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.00       0.00          0          7          0           0
 Execute      1      0.00       0.00          0          0          0           0
-Fetch       14      0.00       0.01          0      12978          0         190
+Fetch       14      0.00       0.00          0      12680          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.01       0.01          0      12985          0         190
+total       16      0.01       0.01          0      12687          0         190
 
 Misses in library cache during parse: 1
 Optimizer mode: ALL_ROWS
@@ -183,16 +183,46 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  FILTER  (cr=12978 pr=0 pw=0 time=10355 us starts=1 direct read=0 direct write=0)
-      4950       4950       4950   MERGE JOIN  (cr=14 pr=0 pw=0 time=1018 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
-       100        100        100    SORT JOIN (cr=7 pr=0 pw=0 time=101 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=71 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      4950       4950       4950    SORT JOIN (cr=7 pr=0 pw=0 time=593 us starts=100 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      3160       3160       3160   INDEX RANGE SCAN PK_PROVXPROD (cr=9229 pr=0 pw=0 time=5265 us starts=4950 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-        46         46         46    INDEX UNIQUE SCAN PK_PROVXPROD (cr=4146 pr=0 pw=0 time=1602 us starts=3097 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73133)
-      1600       1600       1600   INDEX RANGE SCAN PK_PROVXPROD (cr=3735 pr=0 pw=0 time=2149 us starts=1790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-         0          0          0    INDEX UNIQUE SCAN PK_PROVXPROD (cr=1466 pr=0 pw=0 time=609 us starts=1461 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73133)
+       190        190        190  FILTER  (cr=12680 pr=0 pw=0 time=9731 us starts=1 direct read=0 direct write=0)
+      4950       4950       4950   MERGE JOIN  (cr=14 pr=0 pw=0 time=922 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
+       100        100        100    SORT JOIN (cr=7 pr=0 pw=0 time=102 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=69 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      4950       4950       4950    SORT JOIN (cr=7 pr=0 pw=0 time=568 us starts=100 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       100        100        100     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=9 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      3160       3160       3160   INDEX RANGE SCAN PK_PROVXPROD (cr=9004 pr=0 pw=0 time=4859 us starts=4950 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+        38         38         38    INDEX UNIQUE SCAN PK_PROVXPROD (cr=3916 pr=0 pw=0 time=1378 us starts=2935 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73198)
+      1600       1600       1600   INDEX RANGE SCAN PK_PROVXPROD (cr=3662 pr=0 pw=0 time=2064 us starts=1790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+         0          0          0    INDEX UNIQUE SCAN PK_PROVXPROD (cr=1393 pr=0 pw=0 time=564 us starts=1388 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73198)
+
+********************************************************************************
+
+SQL ID: 4xwymf8zkh5xs Plan Hash: 1457651150
+
+select user#,password,datats#,tempts#,type#,defrole,resource$,ptime,
+  decode(defschclass,NULL,'DEFAULT_CONSUMER_GROUP',defschclass),spare1,spare4,
+  ext_username,spare2,nvl(spare3,16382),spare9,spare10,spare7,spare12 
+from
+ user$ where name=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          4          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          4          0           2
+
+Misses in library cache during parse: 2
+Misses in library cache during execute: 2
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 2)
+Number of plan statistics captured: 2
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  TABLE ACCESS BY INDEX ROWID USER$ (cr=2 pr=0 pw=0 time=25 us starts=1 direct read=0 direct write=0 cost=1 size=138 card=1)
+         1          1          1   INDEX UNIQUE SCAN I_USER1 (cr=1 pr=0 pw=0 time=14 us starts=1 direct read=0 direct write=0 cost=0 size=0 card=1)(object id 46)
 
 ********************************************************************************
 
@@ -229,17 +259,54 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  TEMP TABLE TRANSFORMATION  (cr=14 pr=0 pw=0 time=1273 us starts=1 direct read=0 direct write=0)
-         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D666D_22A326 (cr=14 pr=0 pw=0 time=1022 us starts=1 direct read=0 direct write=0)
-       100        100        100    SORT GROUP BY (cr=14 pr=0 pw=0 time=909 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
-      1020       1020       1020     HASH JOIN OUTER (cr=14 pr=0 pw=0 time=292 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
-       100        100        100      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=34 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      1000       1000       1000      TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=59 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-       190        190        190   HASH JOIN  (cr=0 pr=0 pw=0 time=203 us starts=1 direct read=0 direct write=0 cost=211 size=4134 card=1)
-       100        100        100    VIEW  (cr=0 pr=0 pw=0 time=8 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
-       100        100        100     TABLE ACCESS FULL SYS_TEMP_0FD9D666D_22A326 (cr=0 pr=0 pw=0 time=6 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
-       100        100        100    VIEW  (cr=0 pr=0 pw=0 time=19 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
-       100        100        100     TABLE ACCESS FULL SYS_TEMP_0FD9D666D_22A326 (cr=0 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
+       190        190        190  TEMP TABLE TRANSFORMATION  (cr=14 pr=0 pw=0 time=1340 us starts=1 direct read=0 direct write=0)
+         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D668A_230752 (cr=14 pr=0 pw=0 time=1057 us starts=1 direct read=0 direct write=0)
+       100        100        100    SORT GROUP BY (cr=14 pr=0 pw=0 time=932 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
+      1020       1020       1020     HASH JOIN OUTER (cr=14 pr=0 pw=0 time=309 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
+       100        100        100      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=35 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      1000       1000       1000      TABLE ACCESS FULL PROVXPROD (cr=7 pr=0 pw=0 time=71 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+       190        190        190   HASH JOIN  (cr=0 pr=0 pw=0 time=238 us starts=1 direct read=0 direct write=0 cost=211 size=4134 card=1)
+       100        100        100    VIEW  (cr=0 pr=0 pw=0 time=7 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
+       100        100        100     TABLE ACCESS FULL SYS_TEMP_0FD9D668A_230752 (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
+       100        100        100    VIEW  (cr=0 pr=0 pw=0 time=28 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
+       100        100        100     TABLE ACCESS FULL SYS_TEMP_0FD9D668A_230752 (cr=0 pr=0 pw=0 time=20 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
+
+********************************************************************************
+
+SQL ID: 766dby4ysa4v2 Plan Hash: 2614082924
+
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
+   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
+  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
+  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
+  :"SYS_B_4"), COUNT(DISTINCT C4), NVL(SUM(CASE WHEN C4 IS NULL THEN 
+  :"SYS_B_5" ELSE :"SYS_B_6" END),:"SYS_B_7") 
+FROM
+ (SELECT /*+ NO_PARALLEL("X2") FULL("X2") NO_PARALLEL_INDEX("X2") */ 
+  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "X2"."CODIGOPRODUCTO" AS C3, "X2"."NIT" 
+  AS C4 FROM "BD2"."PROVXPROD" "X2") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        8      0.00       0.00          0          0          0           0
+Execute      8      0.00       0.00          0          0          0           0
+Fetch        8      0.00       0.00          0          0          0           8
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       24      0.00       0.00          0          0          0           8
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 136     (recursive depth: 1)
+Number of plan statistics captured: 3
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  RESULT CACHE  d9vkjkuby18m9ayq820299jw6c (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         0          0          0   HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=2132 card=82)
 
 ********************************************************************************
 
@@ -270,11 +337,88 @@ Misses in library cache during parse: 1
 Misses in library cache during execute: 1
 Optimizer mode: ALL_ROWS
 Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 3
+Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  89326bsr1dvk70c2yr53fdry7b (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  0r88j2bk6hx8k044326kjjvf6k (cr=0 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0)
+         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
+         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
+         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
+
+********************************************************************************
+
+SQL ID: cnattt8s744ws Plan Hash: 3525955463
+
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
+   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
+  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
+  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
+  :"SYS_B_4"), COUNT(DISTINCT C4), NVL(SUM(CASE WHEN C4 IS NULL THEN 
+  :"SYS_B_5" ELSE :"SYS_B_6" END),:"SYS_B_7") 
+FROM
+ (SELECT /*+ NO_PARALLEL("P2") FULL("P2") NO_PARALLEL_INDEX("P2") */ 
+  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "P2"."NIT" AS C3, "P2"."NIT" AS C4 FROM 
+  "BD2"."PROV" "P2") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        7      0.00       0.00          0          0          0           0
+Execute      7      0.00       0.00          0          0          0           0
+Fetch        7      0.00       0.00          0          0          0           7
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total       21      0.00       0.00          0          0          0           7
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 136     (recursive depth: 1)
+Number of plan statistics captured: 1
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  RESULT CACHE  fjr0z2wb1u0ja418f1gf6ftdhz (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
+         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
+         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
+
+********************************************************************************
+
+SQL ID: 5cd998kf2jufy Plan Hash: 3525955463
+
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
+   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
+  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
+  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
+  :"SYS_B_4") 
+FROM
+ (SELECT /*+ NO_PARALLEL("P2") FULL("P2") NO_PARALLEL_INDEX("P2") */ 
+  :"SYS_B_5" AS C1, :"SYS_B_6" AS C2, "P2"."NIT" AS C3 FROM "BD2"."PROV" "P2")
+   SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 136     (recursive depth: 1)
+Number of plan statistics captured: 2
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  RESULT CACHE  bh1yrnb79adtvapf5k4xzcu0qy (cr=0 pr=0 pw=0 time=5 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
          0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
@@ -307,11 +451,77 @@ Misses in library cache during parse: 1
 Misses in library cache during execute: 1
 Optimizer mode: ALL_ROWS
 Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 3
+Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  3sv4dzvnqbk287tfakkxb1ukdz (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  8tahr2nq4wt279na90muk76s8s (cr=0 pr=0 pw=0 time=7 us starts=1 direct read=0 direct write=0)
+         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
+         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
+         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
+
+********************************************************************************
+
+SQL ID: 87gaftwrm2h68 Plan Hash: 1072382624
+
+select o.owner#,o.name,o.namespace,o.remoteowner,o.linkname,o.subname 
+from
+ obj$ o where o.obj#=:1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          2          0           0
+Fetch        1      0.00       0.00          0          2          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          4          0           0
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 1)
+Number of plan statistics captured: 1
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         0          0          0  TABLE ACCESS BY INDEX ROWID BATCHED OBJ$ (cr=2 pr=0 pw=0 time=20 us starts=1 direct read=0 direct write=0 cost=3 size=109 card=1)
+         0          0          0   INDEX RANGE SCAN I_OBJ1 (cr=2 pr=0 pw=0 time=20 us starts=1 direct read=0 direct write=0 cost=2 size=0 card=1)(object id 36)
+
+********************************************************************************
+
+SQL ID: 24dcdtsz70mdk Plan Hash: 3525955463
+
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
+   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
+  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
+  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
+  :"SYS_B_4") 
+FROM
+ (SELECT /*+ NO_PARALLEL("P1") FULL("P1") NO_PARALLEL_INDEX("P1") */ 
+  :"SYS_B_5" AS C1, :"SYS_B_6" AS C2, "P1"."NIT" AS C3 FROM "BD2"."PROV" "P1")
+   SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 136     (recursive depth: 1)
+Number of plan statistics captured: 2
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  RESULT CACHE  1g60h5szvxus5gpq1gmygajdx2 (cr=0 pr=0 pw=0 time=5 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
          0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
@@ -346,13 +556,13 @@ Number of plan statistics captured: 2
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  4hf8q4yhz3w7100d27yum8q8z5 (cr=0 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  bu2x7ha5mcvw304dzzbz235m15 (cr=0 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
 
 ********************************************************************************
 
-SQL ID: cnattt8s744ws Plan Hash: 3525955463
+SQL ID: 12cb9s2034pu4 Plan Hash: 2614082924
 
 SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
   RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
@@ -362,18 +572,18 @@ SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE
   :"SYS_B_4"), COUNT(DISTINCT C4), NVL(SUM(CASE WHEN C4 IS NULL THEN 
   :"SYS_B_5" ELSE :"SYS_B_6" END),:"SYS_B_7") 
 FROM
- (SELECT /*+ NO_PARALLEL("P2") FULL("P2") NO_PARALLEL_INDEX("P2") */ 
-  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "P2"."NIT" AS C3, "P2"."NIT" AS C4 FROM 
-  "BD2"."PROV" "P2") SAMPLESUB
+ (SELECT /*+ NO_PARALLEL("X1") FULL("X1") NO_PARALLEL_INDEX("X1") */ 
+  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "X1"."NIT" AS C3, "X1"."CODIGOPRODUCTO" 
+  AS C4 FROM "BD2"."PROVXPROD" "X1") SAMPLESUB
 
 
 call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        7      0.00       0.00          0          0          0           0
-Execute      7      0.00       0.00          0          0          0           0
-Fetch        7      0.00       0.00          0          0          0           7
+Parse        8      0.00       0.00          0          0          0           0
+Execute      8      0.00       0.00          0          0          0           0
+Fetch        8      0.00       0.00          0          0          0           8
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       21      0.00       0.00          0          0          0           7
+total       24      0.00       0.00          0          0          0           8
 
 Misses in library cache during parse: 1
 Misses in library cache during execute: 1
@@ -383,49 +593,9 @@ Number of plan statistics captured: 3
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  b4c41xgu3d2nq1g30mkn9j4fmy (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
-         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
-         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
-         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
-
-********************************************************************************
-
-SQL ID: 24dcdtsz70mdk Plan Hash: 3525955463
-
-SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
-  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
-   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
-  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
-  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
-  :"SYS_B_4") 
-FROM
- (SELECT /*+ NO_PARALLEL("P1") FULL("P1") NO_PARALLEL_INDEX("P1") */ 
-  :"SYS_B_5" AS C1, :"SYS_B_6" AS C2, "P1"."NIT" AS C3 FROM "BD2"."PROV" "P1")
-   SAMPLESUB
-
-
-call     count       cpu    elapsed       disk      query    current        rows
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        2      0.00       0.00          0          0          0           0
-Execute      2      0.00       0.00          0          0          0           0
-Fetch        2      0.00       0.00          0          0          0           2
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total        6      0.00       0.00          0          0          0           2
-
-Misses in library cache during parse: 1
-Misses in library cache during execute: 1
-Optimizer mode: ALL_ROWS
-Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 2
-
-Rows (1st) Rows (avg) Rows (max)  Row Source Operation
----------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  8ymhph4vh9xkj5gs9r29sybmn0 (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
-         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
-         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
-         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
+         1          1          1  RESULT CACHE  4m34gskz217nsdakqt9arfgaxp (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         0          0          0   HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=2132 card=82)
 
 ********************************************************************************
 
@@ -459,7 +629,7 @@ Number of plan statistics captured: 3
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  d09g003vyrpda12u1htxwtpmr6 (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  35ryj223gh2fvb8zntu4f6yrg1 (cr=0 pr=0 pw=0 time=2 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
          0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
@@ -495,84 +665,71 @@ Number of plan statistics captured: 3
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  3q702cum4ta8gb3u23jh6qmg3h (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  gyta1x0p22hz3b24gzvfv7g7ux (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
 
 ********************************************************************************
 
-SQL ID: 5cd998kf2jufy Plan Hash: 3525955463
+SQL ID: 0sbbcuruzd66f Plan Hash: 2239883476
 
-SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
-  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
-   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
-  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
-  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
-  :"SYS_B_4") 
-FROM
- (SELECT /*+ NO_PARALLEL("P2") FULL("P2") NO_PARALLEL_INDEX("P2") */ 
-  :"SYS_B_5" AS C1, :"SYS_B_6" AS C2, "P2"."NIT" AS C3 FROM "BD2"."PROV" "P2")
-   SAMPLESUB
+select /*+ rule */ bucket_cnt, row_cnt, cache_cnt, null_cnt, timestamp#, 
+  sample_size, minimum, maximum, distcnt, lowval, hival, density, col#, 
+  spare1, spare2, avgcln, minimum_enc, maximum_enc 
+from
+ hist_head$ where obj#=:1 and intcol#=:2
 
 
 call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        2      0.00       0.00          0          0          0           0
-Execute      2      0.00       0.00          0          0          0           0
-Fetch        2      0.00       0.00          0          0          0           2
+Parse        1      0.00       0.00          0          0          0           0
+Execute     13      0.00       0.00          0          0          0           0
+Fetch       13      0.00       0.00          0         39          0          13
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total        6      0.00       0.00          0          0          0           2
+total       27      0.00       0.00          0         39          0          13
 
 Misses in library cache during parse: 1
 Misses in library cache during execute: 1
-Optimizer mode: ALL_ROWS
-Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 2
+Optimizer mode: RULE
+Parsing user id: SYS   (recursive depth: 3)
+Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  fm54gwk2t2j8d4m53wkyk52rqp (cr=0 pr=0 pw=0 time=5 us starts=1 direct read=0 direct write=0)
-         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    VIEW  VW_DAG_0 (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=3198 card=82)
-         0          0          0     HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=3 size=1066 card=82)
-         0          0          0      TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=1066 card=82)
+         1          1          1  TABLE ACCESS BY INDEX ROWID HIST_HEAD$ (cr=3 pr=0 pw=0 time=39 us starts=1 direct read=0 direct write=0)
+         1          1          1   INDEX RANGE SCAN I_HH_OBJ#_INTCOL# (cr=2 pr=0 pw=0 time=23 us starts=1 direct read=0 direct write=0)(object id 70)
 
 ********************************************************************************
 
-SQL ID: 12cb9s2034pu4 Plan Hash: 2614082924
+SQL ID: d5m2makjzjn5z Plan Hash: 2397009925
 
-SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
-  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
-   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
-  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
-  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
-  :"SYS_B_4"), COUNT(DISTINCT C4), NVL(SUM(CASE WHEN C4 IS NULL THEN 
-  :"SYS_B_5" ELSE :"SYS_B_6" END),:"SYS_B_7") 
-FROM
- (SELECT /*+ NO_PARALLEL("X1") FULL("X1") NO_PARALLEL_INDEX("X1") */ 
-  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "X1"."NIT" AS C3, "X1"."CODIGOPRODUCTO" 
-  AS C4 FROM "BD2"."PROVXPROD" "X1") SAMPLESUB
+select /*+ rule */ name,online$,contents$,undofile#,undoblock#,blocksize,
+  dflmaxext,dflinit,dflincr,dflextpct,dflminext, dflminlen, owner#,scnwrp,
+  scnbas, NVL(pitrscnwrp, 0), NVL(pitrscnbas, 0), dflogging, bitmapped, inc#, 
+  MOD(flags,(4294967296 * 4294967296)), plugged, NVL(spare1,0), NVL(spare2,0),
+   affstrength, FLOOR(flags/(4294967296 * 4294967296)) 
+from
+ ts$ where ts#=:1
 
 
 call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        8      0.00       0.00          0          0          0           0
-Execute      8      0.00       0.00          0          0          0           0
-Fetch        8      0.00       0.00          0          0          0           8
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          2          0           1
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       24      0.00       0.00          0          0          0           8
+total        3      0.00       0.00          0          2          0           1
 
 Misses in library cache during parse: 1
 Misses in library cache during execute: 1
-Optimizer mode: ALL_ROWS
-Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 3
+Optimizer mode: RULE
+Parsing user id: SYS   (recursive depth: 1)
+Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  czt70uhq85vvc5pburz9hyyyaa (cr=0 pr=0 pw=0 time=2 us starts=1 direct read=0 direct write=0)
-         0          0          0   HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=2132 card=82)
+         1          1          1  TABLE ACCESS CLUSTER TS$ (cr=2 pr=0 pw=0 time=29 us starts=1 direct read=0 direct write=0)
+         1          1          1   INDEX UNIQUE SCAN I_TS# (cr=1 pr=0 pw=0 time=9 us starts=1 direct read=0 direct write=0)(object id 7)
 
 ********************************************************************************
 
@@ -599,83 +756,13 @@ Misses in library cache during parse: 1
 Misses in library cache during execute: 1
 Optimizer mode: ALL_ROWS
 Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 3
+Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  2y23d2btbb1fv8ua0r96thyvff (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  7tqt471u6wu2f8w177m0s2grsv (cr=0 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
-
-********************************************************************************
-
-SQL ID: 766dby4ysa4v2 Plan Hash: 2614082924
-
-SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
-  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
-   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
-  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1"), COUNT(DISTINCT C3), 
-  NVL(SUM(CASE WHEN C3 IS NULL THEN :"SYS_B_2" ELSE :"SYS_B_3" END),
-  :"SYS_B_4"), COUNT(DISTINCT C4), NVL(SUM(CASE WHEN C4 IS NULL THEN 
-  :"SYS_B_5" ELSE :"SYS_B_6" END),:"SYS_B_7") 
-FROM
- (SELECT /*+ NO_PARALLEL("X2") FULL("X2") NO_PARALLEL_INDEX("X2") */ 
-  :"SYS_B_8" AS C1, :"SYS_B_9" AS C2, "X2"."CODIGOPRODUCTO" AS C3, "X2"."NIT" 
-  AS C4 FROM "BD2"."PROVXPROD" "X2") SAMPLESUB
-
-
-call     count       cpu    elapsed       disk      query    current        rows
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        8      0.00       0.00          0          0          0           0
-Execute      8      0.00       0.00          0          0          0           0
-Fetch        8      0.00       0.00          0          0          0           8
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       24      0.00       0.00          0          0          0           8
-
-Misses in library cache during parse: 1
-Misses in library cache during execute: 1
-Optimizer mode: ALL_ROWS
-Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 3
-
-Rows (1st) Rows (avg) Rows (max)  Row Source Operation
----------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  4uv5cz2wat0xsfadh39xy9vyq8 (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
-         0          0          0   HASH GROUP BY (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=2132 card=82)
-
-********************************************************************************
-
-SQL ID: 7dsz0f9p8nqua Plan Hash: 3464566535
-
-SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
-  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
-   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
-  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1") 
-FROM
- (SELECT /*+ NO_PARALLEL("Y2") FULL("Y2") NO_PARALLEL_INDEX("Y2") */ 
-  :"SYS_B_2" AS C1, :"SYS_B_3" AS C2 FROM "BD2"."PROVXPROD" "Y2") SAMPLESUB
-
-
-call     count       cpu    elapsed       disk      query    current        rows
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        2      0.00       0.00          0          0          0           0
-Execute      2      0.00       0.00          0          0          0           0
-Fetch        2      0.00       0.00          0          0          0           2
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total        6      0.00       0.00          0          0          0           2
-
-Misses in library cache during parse: 1
-Misses in library cache during execute: 1
-Optimizer mode: ALL_ROWS
-Parsing user id: 136     (recursive depth: 1)
-Number of plan statistics captured: 2
-
-Rows (1st) Rows (avg) Rows (max)  Row Source Operation
----------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  2n6zzns85a9x62hshk0uy0b31d (cr=0 pr=0 pw=0 time=6 us starts=1 direct read=0 direct write=0)
-         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
-         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
 
 ********************************************************************************
 
@@ -706,9 +793,42 @@ Number of plan statistics captured: 2
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  01vvk26g76z4t9sp4d44nb3wr2 (cr=0 pr=0 pw=0 time=2 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  7yk8kkgh2xdvt4fsfjq8ns0tgt (cr=0 pr=0 pw=0 time=2 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
+
+********************************************************************************
+
+SQL ID: 7dsz0f9p8nqua Plan Hash: 3464566535
+
+SELECT /* OPT_DYN_SAMP */ /*+ ALL_ROWS IGNORE_WHERE_CLAUSE 
+  RESULT_CACHE(SNAPSHOT=3600) opt_param('parallel_execution_enabled', 'false')
+   NO_PARALLEL(SAMPLESUB) NO_PARALLEL_INDEX(SAMPLESUB) NO_SQL_TUNE */ 
+  NVL(SUM(C1),:"SYS_B_0"), NVL(SUM(C2),:"SYS_B_1") 
+FROM
+ (SELECT /*+ NO_PARALLEL("Y2") FULL("Y2") NO_PARALLEL_INDEX("Y2") */ 
+  :"SYS_B_2" AS C1, :"SYS_B_3" AS C2 FROM "BD2"."PROVXPROD" "Y2") SAMPLESUB
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        2      0.00       0.00          0          0          0           0
+Execute      2      0.00       0.00          0          0          0           0
+Fetch        2      0.00       0.00          0          0          0           2
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        6      0.00       0.00          0          0          0           2
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: ALL_ROWS
+Parsing user id: 136     (recursive depth: 1)
+Number of plan statistics captured: 2
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         1          1          1  RESULT CACHE  744x9xgt0kwadazufk25ny7662 (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
+         0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
+         0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
 
 ********************************************************************************
 
@@ -739,9 +859,36 @@ Number of plan statistics captured: 2
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  65jnjtrm55jn364avwa1g6z5k1 (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  7fryf3sg0703bgjta3by1thr4c (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROV (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
+
+********************************************************************************
+
+SQL ID: 9p6bq1v54k13j Plan Hash: 415205717
+
+select value$ 
+from
+ sys.props$ where name = :1
+
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.00       0.00          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          0          2          0           0
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.00       0.00          0          2          0           0
+
+Misses in library cache during parse: 1
+Misses in library cache during execute: 1
+Optimizer mode: CHOOSE
+Parsing user id: SYS   (recursive depth: 2)
+Number of plan statistics captured: 1
+
+Rows (1st) Rows (avg) Rows (max)  Row Source Operation
+---------- ---------- ----------  ---------------------------------------------------
+         0          0          0  TABLE ACCESS FULL PROPS$ (cr=2 pr=0 pw=0 time=34 us starts=1 direct read=0 direct write=0 cost=2 size=50 card=1)
 
 ********************************************************************************
 
@@ -772,18 +919,18 @@ Number of plan statistics captured: 3
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  RESULT CACHE  7wz5dnd8n59z39c8xw0b261x5n (cr=0 pr=0 pw=0 time=3 us starts=1 direct read=0 direct write=0)
+         1          1          1  RESULT CACHE  ccjqw1t4bz33h3m6js7vy01f85 (cr=0 pr=0 pw=0 time=4 us starts=1 direct read=0 direct write=0)
          0          0          0   SORT AGGREGATE (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0)
          0          0          0    TABLE ACCESS FULL PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=2 size=0 card=82)
 
 ********************************************************************************
 
-SQL ID: gsf719d3th3k1 Plan Hash: 0
+SQL ID: 1jnz5vb8u5cug Plan Hash: 0
 
-CREATE GLOBAL TEMPORARY TABLE "SYS"."SYS_TEMP_0FD9D666D_22A326" SHARING=NONE  
+CREATE GLOBAL TEMPORARY TABLE "SYS"."SYS_TEMP_0FD9D668A_230752" SHARING=NONE  
   ("C0" NUMBER,"C1" VARCHAR2(100) COLLATE "USING_NLS_COMP" ,"C2" 
   VARCHAR2(4000) COLLATE "USING_NLS_COMP"  ) IN_MEMORY_METADATA 
-  CURSOR_SPECIFIC_SEGMENT STORAGE (OBJNO 4254951021 ) NOPARALLEL
+  CURSOR_SPECIFIC_SEGMENT STORAGE (OBJNO 4254951050 ) NOPARALLEL
 
 
 call     count       cpu    elapsed       disk      query    current        rows
@@ -824,16 +971,16 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         0          0          0  TABLE ACCESS BY INDEX ROWID BATCHED OBJ$ (cr=3 pr=0 pw=0 time=44 us starts=1 direct read=0 direct write=0 cost=3 size=109 card=1)
-         0          0          0   INDEX RANGE SCAN I_OBJ2 (cr=3 pr=0 pw=0 time=40 us starts=1 direct read=0 direct write=0 cost=2 size=0 card=1)(object id 37)
+         0          0          0  TABLE ACCESS BY INDEX ROWID BATCHED OBJ$ (cr=3 pr=0 pw=0 time=46 us starts=1 direct read=0 direct write=0 cost=4 size=109 card=1)
+         0          0          0   INDEX RANGE SCAN I_OBJ2 (cr=3 pr=0 pw=0 time=42 us starts=1 direct read=0 direct write=0 cost=3 size=0 card=1)(object id 37)
 
 ********************************************************************************
 
-SQL ID: 6h2ama31bk65x Plan Hash: 0
+SQL ID: 7hutt5tf570md Plan Hash: 0
 
-CREATE GLOBAL TEMPORARY TABLE "SYS"."SYS_TEMP_0FD9D666E_22A326" SHARING=NONE  
+CREATE GLOBAL TEMPORARY TABLE "SYS"."SYS_TEMP_0FD9D668B_230752" SHARING=NONE  
   ("C0" NUMBER,"C1" VARCHAR2(100) COLLATE "USING_NLS_COMP" ,"C2" NUMBER ) 
-  IN_MEMORY_METADATA CURSOR_SPECIFIC_SEGMENT STORAGE (OBJNO 4254951022 ) 
+  IN_MEMORY_METADATA CURSOR_SPECIFIC_SEGMENT STORAGE (OBJNO 4254951051 ) 
   NOPARALLEL
 
 
@@ -891,36 +1038,9 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-         1          1          1  SORT AGGREGATE (cr=2 pr=0 pw=0 time=43 us starts=1 direct read=0 direct write=0)
-         1          1          1   TABLE ACCESS BY INDEX ROWID COL_GROUP_USAGE$ (cr=2 pr=0 pw=0 time=38 us starts=1 direct read=0 direct write=0 cost=0 size=807 card=1)
-         1          1          1    INDEX UNIQUE SCAN PK_COL_GROUP_USAGE$ (cr=1 pr=0 pw=0 time=14 us starts=1 direct read=0 direct write=0 cost=0 size=0 card=1)(object id 811)
-
-********************************************************************************
-
-SQL ID: 87gaftwrm2h68 Plan Hash: 1072382624
-
-select o.owner#,o.name,o.namespace,o.remoteowner,o.linkname,o.subname 
-from
- obj$ o where o.obj#=:1
-
-
-call     count       cpu    elapsed       disk      query    current        rows
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse        1      0.00       0.00          0          0          0           0
-Execute      1      0.00       0.00          0          0          0           0
-Fetch        1      0.00       0.00          0          2          0           0
-------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total        3      0.00       0.00          0          2          0           0
-
-Misses in library cache during parse: 0
-Optimizer mode: CHOOSE
-Parsing user id: SYS   (recursive depth: 1)
-Number of plan statistics captured: 1
-
-Rows (1st) Rows (avg) Rows (max)  Row Source Operation
----------- ---------- ----------  ---------------------------------------------------
-         0          0          0  TABLE ACCESS BY INDEX ROWID BATCHED OBJ$ (cr=2 pr=0 pw=0 time=27 us starts=1 direct read=0 direct write=0 cost=3 size=109 card=1)
-         0          0          0   INDEX RANGE SCAN I_OBJ1 (cr=2 pr=0 pw=0 time=27 us starts=1 direct read=0 direct write=0 cost=2 size=0 card=1)(object id 36)
+         1          1          1  SORT AGGREGATE (cr=2 pr=0 pw=0 time=48 us starts=1 direct read=0 direct write=0)
+         1          1          1   TABLE ACCESS BY INDEX ROWID COL_GROUP_USAGE$ (cr=2 pr=0 pw=0 time=45 us starts=1 direct read=0 direct write=0 cost=1 size=21 card=1)
+         1          1          1    INDEX UNIQUE SCAN PK_COL_GROUP_USAGE$ (cr=1 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0 cost=0 size=0 card=1)(object id 811)
 
 
 
@@ -933,9 +1053,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        5      0.03       0.03          0         20          0           0
 Execute      5      0.00       0.00          0         28          4           0
-Fetch       56      0.04       0.05          0      40844          0         760
+Fetch       56      0.04       0.05          0      40369          0         760
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       66      0.08       0.08          0      40892          4         760
+total       66      0.08       0.09          0      40417          4         760
 
 Misses in library cache during parse: 4
 
@@ -944,28 +1064,28 @@ OVERALL TOTALS FOR ALL RECURSIVE STATEMENTS
 
 call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-Parse       70      0.00       0.00          0          0          0           0
-Execute     78      0.00       0.00          0          0          0           0
-Fetch       76      0.00       0.00          0         28          0          69
+Parse       75      0.00       0.00          0          0          0           0
+Execute     95      0.01       0.01          0          2          0           0
+Fetch       93      0.00       0.00          0         75          0          85
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total      224      0.01       0.01          0         28          0          69
+total      263      0.02       0.02          0         77          0          85
 
-Misses in library cache during parse: 17
-Misses in library cache during execute: 15
+Misses in library cache during parse: 23
+Misses in library cache during execute: 21
 
-   44  user  SQL statements in session.
-    5  internal SQL statements in session.
-   49  SQL statements in session.
+   36  user  SQL statements in session.
+   10  internal SQL statements in session.
+   46  SQL statements in session.
 ********************************************************************************
-Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_3821_BD2_TRABAJO4.trc
+Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_5737_BD2_TRABAJO4.trc
 Trace file compatibility: 12.2.0.0
 Sort options: exeela  fchela  
        1  session in tracefile.
-      44  user  SQL statements in trace file.
-       5  internal SQL statements in trace file.
-      49  SQL statements in trace file.
-      25  unique SQL statements in trace file.
-     907  lines in trace file.
+      36  user  SQL statements in trace file.
+      10  internal SQL statements in trace file.
+      46  SQL statements in trace file.
+      29  unique SQL statements in trace file.
+     928  lines in trace file.
        0  elapsed seconds in trace file.
 
 

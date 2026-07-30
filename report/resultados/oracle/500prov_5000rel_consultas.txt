@@ -1177,7 +1177,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.01
+Elapsed: 00:00:00.02
 Consulta 3: conteos y productos comunes
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -1767,7 +1767,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.40
+Elapsed: 00:00:00.39
 Consulta 4: operadores de conjuntos MINUS
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -2357,4 +2357,4 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.24
+Elapsed: 00:00:00.25

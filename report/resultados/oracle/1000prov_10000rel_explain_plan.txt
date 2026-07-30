@@ -42,16 +42,16 @@ Plan hash value: 2238655522
 -----------------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT			 |			     |	4134 |	     |	 224   (1)|
 |   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |	     |		  |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6671_22A326 |	     |	     |		  |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6696_230752 |	     |	     |		  |
 |   3 |    SORT GROUP BY			 |			     |	9100 |	     |	  13   (8)|
 |   4 |     HASH JOIN OUTER			 |			     | 92820 |	     |	  12   (0)|
 |   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	     |	   3   (0)|
 |   6 |      TABLE ACCESS FULL			 | PROVXPROD		     | 26000 |	     |	   9   (0)|
 |   7 |   HASH JOIN				 |			     |	4134 |	2072K|	 211   (0)|
 |   8 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
-|   9 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6671_22A326 | 92820 |	     |	   5   (0)|
+|   9 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6696_230752 | 92820 |	     |	   5   (0)|
 |  10 |    VIEW 				 |			     |	2058K|	     |	   5   (0)|
-|  11 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6671_22A326 | 92820 |	     |	   5   (0)|
+|  11 |     TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6696_230752 | 92820 |	     |	   5   (0)|
 -----------------------------------------------------------------------------------------------------------
 
 18 rows selected.
@@ -70,7 +70,7 @@ Plan hash value: 2544319945
 ---------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT			 |			     |	 195 |	  41  (10)|
 |   1 |  TEMP TABLE TRANSFORMATION		 |			     |	     |		  |
-|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6672_22A326 |	     |		  |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6697_230752 |	     |		  |
 |   3 |    HASH GROUP BY			 |			     |	9100 |	  13   (8)|
 |   4 |     HASH JOIN OUTER			 |			     | 92820 |	  12   (0)|
 |   5 |      TABLE ACCESS FULL			 | PROV 		     |	6500 |	   3   (0)|
@@ -78,9 +78,9 @@ Plan hash value: 2544319945
 |   7 |   HASH JOIN				 |			     |	 195 |	  28  (11)|
 |   8 |    HASH JOIN				 |			     |	 156 |	  10   (0)|
 |   9 |     VIEW				 |			     | 79560 |	   5   (0)|
-|  10 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6672_22A326 | 79560 |	   5   (0)|
+|  10 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6697_230752 | 79560 |	   5   (0)|
 |  11 |     VIEW				 |			     | 79560 |	   5   (0)|
-|  12 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6672_22A326 | 79560 |	   5   (0)|
+|  12 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6697_230752 | 79560 |	   5   (0)|
 |  13 |    VIEW 				 |			     |	 194K|	  18  (17)|
 |  14 |     HASH GROUP BY			 |			     |	 388K|	  18  (17)|
 |  15 |      FILTER				 |			     |	     |		  |

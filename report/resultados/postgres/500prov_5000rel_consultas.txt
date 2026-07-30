@@ -194,7 +194,7 @@ Consulta 1: doble NOT EXISTS
        19 | Proveedor_19 |       20 | Proveedor_20
 (190 rows)
 
-Time: 49.033 ms
+Time: 50.608 ms
 Consulta 2: firma del conjunto con STRING_AGG
  nitprov1 | nombreprov1  | nitprov2 | nombreprov2  
 ----------+--------------+----------+--------------
@@ -390,7 +390,7 @@ Consulta 2: firma del conjunto con STRING_AGG
        19 | Proveedor_19 |       20 | Proveedor_20
 (190 rows)
 
-Time: 2.904 ms
+Time: 3.007 ms
 Consulta 3: conteos y productos comunes
  nitprov1 | nombreprov1  | nitprov2 | nombreprov2  
 ----------+--------------+----------+--------------
@@ -586,7 +586,7 @@ Consulta 3: conteos y productos comunes
        16 | Proveedor_16 |       19 | Proveedor_19
 (190 rows)
 
-Time: 148.418 ms
+Time: 157.761 ms
 Consulta 4: operadores de conjuntos EXCEPT
  nitprov1 | nombreprov1  | nitprov2 | nombreprov2  
 ----------+--------------+----------+--------------
@@ -782,4 +782,4 @@ Consulta 4: operadores de conjuntos EXCEPT
        19 | Proveedor_19 |       20 | Proveedor_20
 (190 rows)
 
-Time: 1345.530 ms (00:01.346)
+Time: 1397.491 ms (00:01.397)

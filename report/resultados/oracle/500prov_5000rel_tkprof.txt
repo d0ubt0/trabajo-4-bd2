@@ -1,9 +1,9 @@
 
-TKPROF: Release 23.0.0.0.0 - Development on Wed Jul 29 06:09:04 2026
+TKPROF: Release 23.0.0.0.0 - Development on Thu Jul 30 06:00:31 2026
 
 Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
 
-Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_3888_BD2_TRABAJO4.trc
+Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_5816_BD2_TRABAJO4.trc
 Trace file version:
    Version 23.26.2.0.0
    Build label:    RDBMS_23.26.2.0.0DBRU_LINUX.X64_260427
@@ -48,9 +48,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.00       0.00          0          0          0           0
 Execute      1      0.00       0.00          0         23          2           0
-Fetch       14      0.71       0.71          0     360025          0         190
+Fetch       14      0.71       0.72          0     341733          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.71       0.71          0     360048          2         190
+total       16      0.72       0.72          0     341756          2         190
 
 Misses in library cache during parse: 0
 Optimizer mode: ALL_ROWS
@@ -59,32 +59,32 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  TEMP TABLE TRANSFORMATION  (cr=360048 pr=0 pw=0 time=718623 us starts=1 direct read=0 direct write=0)
-         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D666E_22A326 (cr=23 pr=0 pw=0 time=1195 us starts=1 direct read=0 direct write=0)
-       500        500        500    HASH GROUP BY (cr=23 pr=0 pw=0 time=1034 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
-      5020       5020       5020     HASH JOIN OUTER (cr=23 pr=0 pw=0 time=537 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
-       500        500        500      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=49 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      5000       5000       5000      TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=79 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-       190        190        190   HASH JOIN  (cr=360025 pr=0 pw=0 time=717383 us starts=1 direct read=0 direct write=0 cost=19 size=195 card=1)
-     10295      10295      10295    HASH JOIN  (cr=0 pr=0 pw=0 time=890 us starts=1 direct read=0 direct write=0 cost=10 size=156 card=1)
-       500        500        500     VIEW  (cr=0 pr=0 pw=0 time=10 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-       500        500        500      TABLE ACCESS FULL SYS_TEMP_0FD9D666E_22A326 (cr=0 pr=0 pw=0 time=9 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+       190        190        190  TEMP TABLE TRANSFORMATION  (cr=341756 pr=0 pw=0 time=724663 us starts=1 direct read=0 direct write=0)
+         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D668B_230752 (cr=23 pr=0 pw=0 time=1228 us starts=1 direct read=0 direct write=0)
+       500        500        500    HASH GROUP BY (cr=23 pr=0 pw=0 time=1069 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
+      5020       5020       5020     HASH JOIN OUTER (cr=23 pr=0 pw=0 time=493 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
+       500        500        500      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=37 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      5000       5000       5000      TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=81 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+       190        190        190   HASH JOIN  (cr=341733 pr=0 pw=0 time=723392 us starts=1 direct read=0 direct write=0 cost=19 size=195 card=1)
+     11213      11213      11213    HASH JOIN  (cr=0 pr=0 pw=0 time=1020 us starts=1 direct read=0 direct write=0 cost=10 size=156 card=1)
        500        500        500     VIEW  (cr=0 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-       500        500        500      TABLE ACCESS FULL SYS_TEMP_0FD9D666E_22A326 (cr=0 pr=0 pw=0 time=9 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
-     12268      12268      12268    VIEW  (cr=360025 pr=0 pw=0 time=713582 us starts=1 direct read=0 direct write=0 cost=9 size=198900 card=5100)
-     12268      12268      12268     HASH GROUP BY (cr=360025 pr=0 pw=0 time=712821 us starts=1 direct read=0 direct write=0 cost=9 size=397800 card=5100)
-     12298      12298      12298      FILTER  (cr=360025 pr=0 pw=0 time=708976 us starts=1 direct read=0 direct write=0)
-   1208858    1208858    1208858       NESTED LOOPS OUTER (cr=360025 pr=0 pw=0 time=653401 us starts=1 direct read=0 direct write=0 cost=8 size=397800 card=5100)
-   1208858    1208858    1208858        HASH JOIN OUTER (cr=21 pr=0 pw=0 time=178399 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
-    124750     124750     124750         NESTED LOOPS OUTER (cr=5 pr=0 pw=0 time=28296 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
-    124750     124750     124750          STATISTICS COLLECTOR  (cr=5 pr=0 pw=0 time=21353 us starts=1 direct read=0 direct write=0)
-    124750     124750     124750           MERGE JOIN  (cr=5 pr=0 pw=0 time=14445 us starts=1 direct read=0 direct write=0 cost=5 size=13000 card=500)
-       500        500        500            INDEX FULL SCAN PK_PROV (cr=1 pr=0 pw=0 time=42 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73130)
-    124750     124750     124750            SORT JOIN (cr=4 pr=0 pw=0 time=7632 us starts=500 direct read=0 direct write=0 cost=3 size=1300 card=100)
-       500        500        500             INDEX FAST FULL SCAN PK_PROV (cr=4 pr=0 pw=0 time=41 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73130)
-         0          0          0          INDEX RANGE SCAN PK_PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=5 size=260 card=10)(object id 73133)
-      5000       5000       5000         TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=1361 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-      2508       2508       2508        INDEX UNIQUE SCAN PK_PROVXPROD (cr=360004 pr=0 pw=0 time=315068 us starts=1208858 direct read=0 direct write=0 cost=0 size=26 card=1)(object id 73133)
+       500        500        500      TABLE ACCESS FULL SYS_TEMP_0FD9D668B_230752 (cr=0 pr=0 pw=0 time=10 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+       500        500        500     VIEW  (cr=0 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+       500        500        500      TABLE ACCESS FULL SYS_TEMP_0FD9D668B_230752 (cr=0 pr=0 pw=0 time=10 us starts=1 direct read=0 direct write=0 cost=5 size=79560 card=1020)
+     12234      12234      12234    VIEW  (cr=341733 pr=0 pw=0 time=719073 us starts=1 direct read=0 direct write=0 cost=9 size=198900 card=5100)
+     12234      12234      12234     HASH GROUP BY (cr=341733 pr=0 pw=0 time=718326 us starts=1 direct read=0 direct write=0 cost=9 size=397800 card=5100)
+     12255      12255      12255      FILTER  (cr=341733 pr=0 pw=0 time=714203 us starts=1 direct read=0 direct write=0)
+   1201271    1201271    1201271       NESTED LOOPS OUTER (cr=341733 pr=0 pw=0 time=658434 us starts=1 direct read=0 direct write=0 cost=8 size=397800 card=5100)
+   1201271    1201271    1201271        HASH JOIN OUTER (cr=21 pr=0 pw=0 time=179056 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
+    124750     124750     124750         NESTED LOOPS OUTER (cr=5 pr=0 pw=0 time=28702 us starts=1 direct read=0 direct write=0 cost=8 size=265200 card=5100)
+    124750     124750     124750          STATISTICS COLLECTOR  (cr=5 pr=0 pw=0 time=21648 us starts=1 direct read=0 direct write=0)
+    124750     124750     124750           MERGE JOIN  (cr=5 pr=0 pw=0 time=14719 us starts=1 direct read=0 direct write=0 cost=5 size=13000 card=500)
+       500        500        500            INDEX FULL SCAN PK_PROV (cr=1 pr=0 pw=0 time=55 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73195)
+    124750     124750     124750            SORT JOIN (cr=4 pr=0 pw=0 time=7709 us starts=500 direct read=0 direct write=0 cost=3 size=1300 card=100)
+       500        500        500             INDEX FAST FULL SCAN PK_PROV (cr=4 pr=0 pw=0 time=44 us starts=1 direct read=0 direct write=0 cost=2 size=1300 card=100)(object id 73195)
+         0          0          0          INDEX RANGE SCAN PK_PROVXPROD (cr=0 pr=0 pw=0 time=0 us starts=0 direct read=0 direct write=0 cost=5 size=260 card=10)(object id 73198)
+      5000       5000       5000         TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=1431 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+      2465       2465       2465        INDEX UNIQUE SCAN PK_PROVXPROD (cr=341712 pr=0 pw=0 time=319678 us starts=1201271 direct read=0 direct write=0 cost=0 size=26 card=1)(object id 73198)
 
 ********************************************************************************
 
@@ -109,9 +109,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.00       0.00          0          0          0           0
 Execute      1      0.00       0.00          0          0          0           0
-Fetch       14      0.39       0.39          0     297053          0         190
+Fetch       14      0.39       0.40          0     295355          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.39       0.39          0     297053          0         190
+total       16      0.39       0.40          0     295355          0         190
 
 Misses in library cache during parse: 0
 Optimizer mode: ALL_ROWS
@@ -120,22 +120,22 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  FILTER  (cr=297053 pr=0 pw=0 time=395425 us starts=1 direct read=0 direct write=0)
-    124750     124750     124750   MERGE JOIN  (cr=14 pr=0 pw=0 time=21221 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
-       500        500        500    SORT JOIN (cr=7 pr=0 pw=0 time=216 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=47 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-    124750     124750     124750    SORT JOIN (cr=7 pr=0 pw=0 time=13657 us starts=500 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=29 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-    114960     114960     114960   MINUS  (cr=275005 pr=0 pw=0 time=298980 us starts=124750 direct read=0 direct write=0)
-    115199     115199     115199    SORT UNIQUE NOSORT (cr=130616 pr=0 pw=0 time=125541 us starts=124750 direct read=0 direct write=0)
-    230159     230159     230159     INDEX RANGE SCAN PK_PROVXPROD (cr=130616 pr=0 pw=0 time=85571 us starts=124750 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-    225657     225657     225657    SORT UNIQUE NOSORT (cr=144389 pr=0 pw=0 time=134476 us starts=114960 direct read=0 direct write=0)
-    340451     340451     340451     INDEX RANGE SCAN PK_PROVXPROD (cr=144389 pr=0 pw=0 time=87440 us starts=114960 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-      9600       9600       9600   MINUS  (cr=22034 pr=0 pw=0 time=20590 us starts=9790 direct read=0 direct write=0)
-      9600       9600       9600    SORT UNIQUE NOSORT (cr=12429 pr=0 pw=0 time=10672 us starts=9790 direct read=0 direct write=0)
-     19200      19200      19200     INDEX RANGE SCAN PK_PROVXPROD (cr=12429 pr=0 pw=0 time=7445 us starts=9790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-         0          0          0    SORT UNIQUE NOSORT (cr=9605 pr=0 pw=0 time=7442 us starts=9600 direct read=0 direct write=0)
-         0          0          0     INDEX RANGE SCAN PK_PROVXPROD (cr=9605 pr=0 pw=0 time=4512 us starts=9600 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
+       190        190        190  FILTER  (cr=295355 pr=0 pw=0 time=403139 us starts=1 direct read=0 direct write=0)
+    124750     124750     124750   MERGE JOIN  (cr=14 pr=0 pw=0 time=21774 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
+       500        500        500    SORT JOIN (cr=7 pr=0 pw=0 time=346 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=93 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+    124750     124750     124750    SORT JOIN (cr=7 pr=0 pw=0 time=13899 us starts=500 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=43 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+    114960     114960     114960   MINUS  (cr=273507 pr=0 pw=0 time=305697 us starts=124750 direct read=0 direct write=0)
+    115231     115231     115231    SORT UNIQUE NOSORT (cr=130157 pr=0 pw=0 time=126034 us starts=124750 direct read=0 direct write=0)
+    230191     230191     230191     INDEX RANGE SCAN PK_PROVXPROD (cr=130157 pr=0 pw=0 time=86378 us starts=124750 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+    233655     233655     233655    SORT UNIQUE NOSORT (cr=143350 pr=0 pw=0 time=139971 us starts=114960 direct read=0 direct write=0)
+    348574     348574     348574     INDEX RANGE SCAN PK_PROVXPROD (cr=143350 pr=0 pw=0 time=91532 us starts=114960 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+      9600       9600       9600   MINUS  (cr=21834 pr=0 pw=0 time=22843 us starts=9790 direct read=0 direct write=0)
+      9600       9600       9600    SORT UNIQUE NOSORT (cr=12229 pr=0 pw=0 time=12127 us starts=9790 direct read=0 direct write=0)
+     19200      19200      19200     INDEX RANGE SCAN PK_PROVXPROD (cr=12229 pr=0 pw=0 time=8707 us starts=9790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+         0          0          0    SORT UNIQUE NOSORT (cr=9605 pr=0 pw=0 time=8046 us starts=9600 direct read=0 direct write=0)
+         0          0          0     INDEX RANGE SCAN PK_PROVXPROD (cr=9605 pr=0 pw=0 time=5066 us starts=9600 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
 
 ********************************************************************************
 
@@ -172,9 +172,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        1      0.00       0.00          0          0          0           0
 Execute      1      0.00       0.00          0          0          0           0
-Fetch       14      0.21       0.21          0     296546          0         190
+Fetch       14      0.21       0.22          0     294592          0         190
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       16      0.21       0.21          0     296546          0         190
+total       16      0.21       0.22          0     294592          0         190
 
 Misses in library cache during parse: 0
 Optimizer mode: ALL_ROWS
@@ -183,16 +183,16 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  FILTER  (cr=296546 pr=0 pw=0 time=217533 us starts=1 direct read=0 direct write=0)
-    124750     124750     124750   MERGE JOIN  (cr=14 pr=0 pw=0 time=21176 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
-       500        500        500    SORT JOIN (cr=7 pr=0 pw=0 time=335 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=103 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-    124750     124750     124750    SORT JOIN (cr=7 pr=0 pw=0 time=13531 us starts=500 direct read=0 direct write=0 cost=4 size=6500 card=100)
-       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=29 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-    114960     114960     114960   INDEX RANGE SCAN PK_PROVXPROD (cr=274809 pr=0 pw=0 time=148730 us starts=124750 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-       239        239        239    INDEX UNIQUE SCAN PK_PROVXPROD (cr=144193 pr=0 pw=0 time=54031 us starts=114832 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73133)
-      9600       9600       9600   INDEX RANGE SCAN PK_PROVXPROD (cr=21723 pr=0 pw=0 time=12528 us starts=9790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73133)
-         0          0          0    INDEX UNIQUE SCAN PK_PROVXPROD (cr=9294 pr=0 pw=0 time=3681 us starts=9289 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73133)
+       190        190        190  FILTER  (cr=294592 pr=0 pw=0 time=220029 us starts=1 direct read=0 direct write=0)
+    124750     124750     124750   MERGE JOIN  (cr=14 pr=0 pw=0 time=21270 us starts=1 direct read=0 direct write=0 cost=8 size=65000 card=500)
+       500        500        500    SORT JOIN (cr=7 pr=0 pw=0 time=393 us starts=1 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=130 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+    124750     124750     124750    SORT JOIN (cr=7 pr=0 pw=0 time=13594 us starts=500 direct read=0 direct write=0 cost=4 size=6500 card=100)
+       500        500        500     TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=38 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+    114960     114960     114960   INDEX RANGE SCAN PK_PROVXPROD (cr=273085 pr=0 pw=0 time=151130 us starts=124750 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+       270        270        270    INDEX UNIQUE SCAN PK_PROVXPROD (cr=143165 pr=0 pw=0 time=54625 us starts=115083 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73198)
+      9600       9600       9600   INDEX RANGE SCAN PK_PROVXPROD (cr=21493 pr=0 pw=0 time=12607 us starts=9790 direct read=0 direct write=0 cost=2 size=26 card=1)(object id 73198)
+         0          0          0    INDEX UNIQUE SCAN PK_PROVXPROD (cr=9284 pr=0 pw=0 time=3724 us starts=9279 direct read=0 direct write=0 cost=1 size=26 card=1)(object id 73198)
 
 ********************************************************************************
 
@@ -229,17 +229,17 @@ Number of plan statistics captured: 1
 
 Rows (1st) Rows (avg) Rows (max)  Row Source Operation
 ---------- ---------- ----------  ---------------------------------------------------
-       190        190        190  TEMP TABLE TRANSFORMATION  (cr=23 pr=0 pw=0 time=4538 us starts=1 direct read=0 direct write=0)
-         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D666D_22A326 (cr=23 pr=0 pw=0 time=4143 us starts=1 direct read=0 direct write=0)
-       500        500        500    SORT GROUP BY (cr=23 pr=0 pw=0 time=3967 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
-      5020       5020       5020     HASH JOIN OUTER (cr=23 pr=0 pw=0 time=656 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
-       500        500        500      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=37 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
-      5000       5000       5000      TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=212 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
-       190        190        190   HASH JOIN  (cr=0 pr=0 pw=0 time=330 us starts=1 direct read=0 direct write=0 cost=211 size=4134 card=1)
-       500        500        500    VIEW  (cr=0 pr=0 pw=0 time=14 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
-       500        500        500     TABLE ACCESS FULL SYS_TEMP_0FD9D666D_22A326 (cr=0 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
-       500        500        500    VIEW  (cr=0 pr=0 pw=0 time=55 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
-       500        500        500     TABLE ACCESS FULL SYS_TEMP_0FD9D666D_22A326 (cr=0 pr=0 pw=0 time=25 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
+       190        190        190  TEMP TABLE TRANSFORMATION  (cr=23 pr=0 pw=0 time=4616 us starts=1 direct read=0 direct write=0)
+         0          0          0   LOAD AS SELECT (CURSOR DURATION MEMORY) SYS_TEMP_0FD9D668A_230752 (cr=23 pr=0 pw=0 time=4215 us starts=1 direct read=0 direct write=0)
+       500        500        500    SORT GROUP BY (cr=23 pr=0 pw=0 time=3998 us starts=1 direct read=0 direct write=0 cost=7 size=9100 card=100)
+      5020       5020       5020     HASH JOIN OUTER (cr=23 pr=0 pw=0 time=699 us starts=1 direct read=0 direct write=0 cost=6 size=92820 card=1020)
+       500        500        500      TABLE ACCESS FULL PROV (cr=7 pr=0 pw=0 time=43 us starts=1 direct read=0 direct write=0 cost=3 size=6500 card=100)
+      5000       5000       5000      TABLE ACCESS FULL PROVXPROD (cr=16 pr=0 pw=0 time=245 us starts=1 direct read=0 direct write=0 cost=3 size=26000 card=1000)
+       190        190        190   HASH JOIN  (cr=0 pr=0 pw=0 time=331 us starts=1 direct read=0 direct write=0 cost=211 size=4134 card=1)
+       500        500        500    VIEW  (cr=0 pr=0 pw=0 time=12 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
+       500        500        500     TABLE ACCESS FULL SYS_TEMP_0FD9D668A_230752 (cr=0 pr=0 pw=0 time=11 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
+       500        500        500    VIEW  (cr=0 pr=0 pw=0 time=62 us starts=1 direct read=0 direct write=0 cost=5 size=2108340 card=1020)
+       500        500        500     TABLE ACCESS FULL SYS_TEMP_0FD9D668A_230752 (cr=0 pr=0 pw=0 time=29 us starts=1 direct read=0 direct write=0 cost=5 size=92820 card=1020)
 
 ********************************************************************************
 
@@ -269,9 +269,9 @@ call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
 Parse        5      0.00       0.00          0          0          0           0
 Execute      5      0.00       0.00          0         46          4           0
-Fetch       56      1.32       1.33          0     953624          0         760
+Fetch       56      1.33       1.34          0     931680          0         760
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
-total       66      1.32       1.33          0     953670          4         760
+total       66      1.33       1.35          0     931726          4         760
 
 Misses in library cache during parse: 0
 
@@ -292,7 +292,7 @@ Misses in library cache during parse: 0
     0  internal SQL statements in session.
     5  SQL statements in session.
 ********************************************************************************
-Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_3888_BD2_TRABAJO4.trc
+Trace file: /opt/oracle/diag/rdbms/free/FREE/trace/FREE_ora_5816_BD2_TRABAJO4.trc
 Trace file compatibility: 12.2.0.0
 Sort options: exeela  fchela  
        1  session in tracefile.

@@ -5,7 +5,7 @@ Buffers shared read equivale a lecturas fisicas desde disco.
 Actual rows muestra filas procesadas/retornadas segun cada nodo del plan.
   relname  | heap_blks_read | heap_blks_hit | idx_blks_read | idx_blks_hit 
 -----------+----------------+---------------+---------------+--------------
- prov      |              0 |         21185 |             2 |        21021
- provxprod |              0 |       4637884 |             1 |      1154733
+ prov      |              0 |      41986718 |             2 |      1124113
+ provxprod |              0 |     728135026 |             1 |    181601230
 (2 rows)
 

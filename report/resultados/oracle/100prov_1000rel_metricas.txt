@@ -5,16 +5,19 @@ SQL_ID	      EXECUTIONS    FETCHES ROWS_PROCESSED BUFFER_GETS DISK_READS ELAPSED
 ------------- ---------- ---------- -------------- ----------- ---------- ------------ ---------------- ------------------- ----------------
 SQL_TEXTO
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-f0u9kgfh8y45v	       1	 14	       190	 13191		0	 13558		69.4263 	    13.5714		   0
+f0u9kgfh8y45v	       1	 14	       190	 13184		0	 23089		69.3895 	    13.5714		   0
 SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
 
-7hu456f7cgj75	       1	 14	       190	 12985		0	 19899		68.3421 	    13.5714		   0
+f0u9kgfh8y45v	       1	 14	       190	 13184		0	 14017		69.3895 	    13.5714		   0
 SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
 
-7hu456f7cgj75	       1	 14	       190	 13044		0	 15653		68.6526 	    13.5714		   0
+7hu456f7cgj75	       1	 14	       190	 12687		0	 19205		66.7737 	    13.5714		   0
 SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
 
-f0u9kgfh8y45v	       1	 14	       190	 13191		0	 22356		69.4263 	    13.5714		   0
+7hu456f7cgj75	       1	 14	       190	 12838		0	 22662		67.5684 	    13.5714		   0
+SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
+
+f0u9kgfh8y45v	       1	 13	       181     6219023		0      8844298	     34359.2431 	    13.9231		   0
 SELECT p1.nit AS Nitprov1, p1.nombre AS NombreProv1,	    p2.nit AS Nitprov2, p2.nombre
 
 

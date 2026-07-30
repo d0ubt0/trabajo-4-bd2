@@ -599,7 +599,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.86
+Elapsed: 00:00:00.90
 Consulta 2: firma del conjunto con LISTAGG
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -1189,7 +1189,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:00.02
+Elapsed: 00:00:00.03
 Consulta 3: conteos y productos comunes
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -1779,7 +1779,7 @@ Proveedor_13
 
 190 rows selected.
 
-Elapsed: 00:00:02.95
+Elapsed: 00:00:02.94
 Consulta 4: operadores de conjuntos MINUS
 
   NITPROV1 NOMBREPROV1												  NITPROV2
@@ -2369,7 +2369,7 @@ Proveedor_20
 
 190 rows selected.
 
-Elapsed: 00:00:01.59
+Elapsed: 00:00:01.64
 
 Session altered.
 
