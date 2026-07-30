@@ -133,6 +133,89 @@ En Oracle se usa \texttt{MINUS}; en PostgreSQL se usa \texttt{EXCEPT}. Revisa qu
 \section{Resultados y Análisis}
 Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzaron 20 proveedores sin productos, resultando en $20 \times 19 / 2 = 190$ parejas que comparten el conjunto vacío.
 
+\subsection{Tablas de Resultados}
+
+\subsubsection{Tabla Resumen Oracle - Explain Plan}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|r|r|r|l|}
+\hline
+\textbf{Muestra} & \textbf{Consulta} & \textbf{Cost} & \textbf{Elapsed} & \textbf{Observaciones} \\ \hline
+100 / 1.000 & Q1 - NOT EXISTS & 4472 & 0.01s & MERGE JOIN + FILTER, INDEX RANGE SCAN en PK\_PROVXPROD \\ \hline
+100 / 1.000 & Q2 - LISTAGG & 218 & 0.00s & TEMP TABLE TRANSFORMATION, HASH JOIN a tabla temporal \\ \hline
+100 / 1.000 & Q3 - conteos & 26 & 0.03s & TEMP TABLE TRANSFORMATION, HASH GROUP BY, NESTED LOOPS \\ \hline
+100 / 1.000 & Q4 - MINUS & 3356 & 0.02s & MERGE JOIN + MINUS con INDEX RANGE SCAN \\ \hline
+500 / 5.000 & Q1 - NOT EXISTS & 4472 & 0.21s & Mismo plan, costo no refleja el crecimiento de datos \\ \hline
+500 / 5.000 & Q2 - LISTAGG & 220 & 0.00s & Plan estable, costo sube ligeramente \\ \hline
+500 / 5.000 & Q3 - conteos & 30 & 0.71s & Mismo plan, NESTED LOOPS sobre 124.750 pares \\ \hline
+500 / 5.000 & Q4 - MINUS & 3356 & 0.39s & Mismo plan, MINUS se ejecuta por cada par \\ \hline
+1.000 / 10.000 & Q1 - NOT EXISTS & 4472 & 0.85s & Plan idéntico, tiempo real crece \\ \hline
+1.000 / 10.000 & Q2 - LISTAGG & 224 & 0.00s & Plan estable y eficiente \\ \hline
+1.000 / 10.000 & Q3 - conteos & 41 & 2.94s & Plan hash cambia a 2544319945 (full scan en Prov) \\ \hline
+1.000 / 10.000 & Q4 - MINUS & 3356 & 1.58s & Mismo plan, 499.500 pares evaluados \\ \hline
+2.000 / 25.000 & Q1 - NOT EXISTS & 4476 & 3.44s & Costo estimado apenas 4476, pero real 3.44s \\ \hline
+2.000 / 25.000 & Q2 - LISTAGG & 234 & 0.02s & Plan estable, más rápido que Q1/Q3/Q4 por órdenes de magnitud \\ \hline
+2.000 / 25.000 & Q3 - conteos & 63 & 16.40s & Usa disco (7335 lecturas físicas); alto costo real \\ \hline
+2.000 / 25.000 & Q4 - MINUS & 3360 & 6.37s & 1.999.000 pares, 4.78M de LIOs \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\subsubsection{Tabla Resumen Oracle - Métricas (v\$sql)}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|r|r|r|r|}
+\hline
+\textbf{Muestra} & \textbf{Consulta} & \textbf{LIOs / filas proc.} & \textbf{Filas ret. / fetches} & \textbf{Disco / LIOs} \\ \hline
+100 / 1.000 & Q1 & 68.34 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q2 & 0.09 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q3 & 77.36 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q4 & 69.43 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q1 & 1,560.77 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q2 & 0.12 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q3 & 1,894.99 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q4 & 1,563.44 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q1 & 6,197.84 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q2 & 0.20 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q3 & 7,903.71 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q4 & 6,201.65 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q1 & 25,164.63 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q2 & 0.41 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q3 & 14,038.62 & 13.57 & 0.0027 \\ \hline
+2.000 / 25.000 & Q4 & 25,193.05 & 13.57 & 0.0000 \\ \hline
+\end{tabular}%
+}
+\end{table}
+
+\subsubsection{Tabla Resumen PostgreSQL}
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|r|r|r|r|l|}
+\hline
+\textbf{Muestra} & \textbf{Consulta} & \textbf{Execution Time} & \textbf{shared hit} & \textbf{shared read} & \textbf{Observaciones} \\ \hline
+100 / 1.000 & Q1 & 23.293 ms & 220 & 0 & Hash Anti Join, Nested Loop, Seq Scan + Index Scan \\ \hline
+100 / 1.000 & Q2 & 0.721 ms & 9 & 0 & Hash Join con CTE, GroupAggregate \\ \hline
+100 / 1.000 & Q3 & 10.954 ms & 216 & 0 & Hash Join con CTE, HashAggregate, Nested Loop \\ \hline
+100 / 1.000 & Q4 & 74.343 ms & 69.881 & 0 & Nested Loop, SubPlan con HashSetOp Except \\ \hline
+500 / 5.000 & Q1 & 60.035 ms & 2.522 & 0 & Mismo plan; 500 x 250 filas en Nested Loop \\ \hline
+500 / 5.000 & Q2 & 3.079 ms & 34 & 0 & Plan eficiente, firma por STRING\_AGG \\ \hline
+500 / 5.000 & Q3 & 207.707 ms & 2.499 & 0 & Hash Right Join produce 1.2M filas intermedias \\ \hline
+500 / 5.000 & Q4 & 1.762.754 ms & 2.824.693 & 0 & SubPlan se ejecuta 124.750 veces; 2.8M buffers \\ \hline
+1.000 / 10.000 & Q1 & 208.851 ms & 200.728 & 0 & Nested Loop produce 499.500 filas internas \\ \hline
+1.000 / 10.000 & Q2 & 6.774 ms & 85 & 0 & Plan estable, 10.020 filas agrupadas \\ \hline
+1.000 / 10.000 & Q3 & 951.194 ms & 199.433 & temp: 1511 & Usa disco por primera vez (hash batches: 4) \\ \hline
+1.000 / 10.000 & Q4 & 7.946.117 ms & 15.862.912 & 0 & 499.500 iteraciones del SubPlan; 15.8M buffers \\ \hline
+2.000 / 25.000 & Q1 & 801.607 ms & 398.426 & 0 & 1.999.000 filas en Nested Loop; JIT habilitado \\ \hline
+2.000 / 25.000 & Q2 & 17.639 ms & 183 & 0 & Plan cambia a Merge Join (antes Hash Join) \\ \hline
+2.000 / 25.000 & Q3 & 4.030.356 ms & 396.940 & temp: 10128 & 32 batches hash, 24.6M filas intermedias \\ \hline
+2.000 / 25.000 & Q4 & 19.167.849 ms & 34.839.945 & 0 & 1.999.000 iteraciones, Index Only Scan, 34.8M buffers \\ \hline
+\end{tabular}%
+}
+\end{table}
+
 \subsection{Comparación de Rendimiento (Oracle vs PostgreSQL)}
 \subsubsection{Tiempo de ejecución}
 La consulta más rápida fue Q2 (\texttt{LISTAGG} / \texttt{STRING\_AGG}). Se mantuvo muy rápida (menor a 20 ms en Postgres y menor a 0.02s en Oracle) a pesar del crecimiento de la muestra.
