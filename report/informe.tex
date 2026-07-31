@@ -37,7 +37,7 @@
 \lstset{style=mystyle}
 
 \title{Trabajo 4 de Bases de Datos 2}
-\author{}
+\author{Jeferson Garcia Angel \\ Sebastian Pabon Nu\~{n}ez \\ Jhofred Jahat Camacho Gomez}
 \date{}
 
 \begin{document}
@@ -125,11 +125,13 @@ Esta consulta crea una representación textual del conjunto de productos de cada
 
 \textbf{Nota Técnica Importante:} En Oracle, el operador \texttt{LISTAGG} tiene un límite de 4000 bytes (o 32767 con tipos extendidos). Si un proveedor vendiera una cantidad masiva de productos, esto generaría el error \texttt{ORA-01489: result of string concatenation is too long}. Para este experimento, el número de productos por proveedor no excede el límite, pero en producción esto representa un riesgo de escalabilidad frente a enfoques puramente relacionales (como Q1 o Q3).
 
+En PostgreSQL se reemplaza \texttt{LISTAGG} por \texttt{STRING\_AGG(x.codigoProducto::TEXT, ',' ORDER BY x.codigoProducto)}.
+
 \subsection{Consulta 3: conteos y productos comunes}
 Esta consulta calcula cuántos productos vende cada proveedor y cuántos tienen en común. Si tienen la misma cantidad total y los comunes coinciden con el total, venden el mismo conjunto. Es distinta porque se basa en agregaciones numéricas y no en operadores de conjuntos.
 
 \subsection{Consulta 4: operadores de conjuntos}
-En Oracle se usa \texttt{MINUS}; en PostgreSQL se usa \texttt{EXCEPT}. Revisa que las diferencias de conjuntos entre ambos proveedores sean vacías bidireccionalmente.
+En Oracle se usa \texttt{MINUS}; en PostgreSQL se usa \texttt{EXCEPT}. Revisa que las diferencias de conjuntos entre ambos proveedores sean vacías bidireccionalmente. En PostgreSQL se reemplaza \texttt{MINUS} por \texttt{EXCEPT}; el resto de la estructura es idéntica.
 
 \section{Resultados y Análisis}
 Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzaron 20 proveedores sin productos, resultando en $20 \times 19 / 2 = 190$ parejas que comparten el conjunto vacío.
@@ -157,46 +159,50 @@ Todas las consultas retornaron 190 filas en todas las muestras, ya que se forzar
 1.000 / 10.000 & Q4 - MINUS & 3356 & 1.03s & Mismo plan, 499.500 pares evaluados \\ \hline
 2.000 / 25.000 & Q1 - NOT EXISTS & 4476 & 2.78s & Costo estimado apenas 4476, pero real 2.78s \\ \hline
 2.000 / 25.000 & Q2 - LISTAGG & 234 & 0.07s & Plan estable, más rápido que Q1/Q3/Q4 por órdenes de magnitud \\ \hline
-2.000 / 25.000 & Q3 - conteos & 63 & 10.32s & Usa memoria/temp hash; alto costo computacional real \\ \hline
+2.000 / 25.000 & Q3 - conteos & 63 & 10.32s & Plan adaptativo: PUSHED PREDICATE + INDEX RANGE SCAN (Plan Hash 3624992620); LIOs reducidos drásticamente en TKPROF \\ \hline
 2.000 / 25.000 & Q4 - MINUS & 3360 & 4.08s & 1.999.000 pares evaluados \\ \hline
 5.000 / 50.000 & Q1 - NOT EXISTS & 165K & 16.72s & Costo 165K, MERGE JOIN + INDEX RANGE SCAN, 12.5M filas \\ \hline
 5.000 / 50.000 & Q2 - LISTAGG & 261 & 0.10s & Sigue estable, TABLA TEMPORAL + HASH JOIN \\ \hline
-5.000 / 50.000 & Q3 - conteos & 98 & 51.46s & NESTED LOOPS OUTER masivo, 124M filas intermedias \\ \hline
+5.000 / 50.000 & Q3 - conteos & 98 & 51.46s & Plan Hash 3380468438; NESTED LOOPS OUTER masivo (124M filas intermedias), 43.500 lecturas de disco \\ \hline
 5.000 / 50.000 & Q4 - MINUS & 4486 & 25.29s & 12.497.500 pares, 29.1M de LIOs, INDEX RANGE SCAN intensivo \\ \hline
 \end{tabular}%
 }
 \end{table}
 
-\subsubsection{Tabla Resumen Oracle - Métricas (v\$sql)}
+\subsubsection{Tabla Resumen Oracle - Métricas TKPROF}
+Se aplicó TKPROF a la traza SQL de cada consulta para obtener las tasas solicitadas por el enunciado. Las columnas de TKPROF se mapean así: $f$ = \textit{query} (consistent reads), $g$ = \textit{current} (current mode reads), $h$ = \textit{rows} (filas procesadas), $i$ = filas retornadas (coincide con $h$ para consultas SELECT), $j$ = \textit{fetches} (llamadas de fetch), $k$ = \textit{disk} (lecturas físicas de disco). Las métricas se corroboraron con la vista dinámica \texttt{v\$sql} y los valores fueron consistentes.
+
 \begin{table}[h]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|r|r|r|r|}
 \hline
-\textbf{Muestra} & \textbf{Consulta} & \textbf{LIOs / filas proc.} & \textbf{Filas ret. / fetches} & \textbf{Disco / LIOs} \\ \hline
-100 / 1.000 & Q1 & 69.39 & 13.57 & 0.0000 \\ \hline
-100 / 1.000 & Q2 & 0.09 & 13.57 & 0.0000 \\ \hline
-100 / 1.000 & Q3 & 67.57 & 13.57 & 0.0000 \\ \hline
-100 / 1.000 & Q4 & 66.77 & 13.57 & 0.0000 \\ \hline
-500 / 5.000 & Q1 & 811.94 & 13.57 & 0.0000 \\ \hline
-500 / 5.000 & Q2 & 0.12 & 13.57 & 0.0000 \\ \hline
-500 / 5.000 & Q3 & 809.07 & 13.57 & 0.0000 \\ \hline
-500 / 5.000 & Q4 & 808.63 & 13.57 & 0.0000 \\ \hline
-1.000 / 10.000 & Q1 & 2,609.80 & 13.57 & 0.0000 \\ \hline
-1.000 / 10.000 & Q2 & 0.20 & 13.57 & 0.0000 \\ \hline
-1.000 / 10.000 & Q3 & 6,205.53 & 13.57 & 0.0000 \\ \hline
-1.000 / 10.000 & Q4 & 6,201.11 & 13.57 & 0.0000 \\ \hline
-2.000 / 25.000 & Q1 & 25,282.96 & 13.57 & 0.0000 \\ \hline
-2.000 / 25.000 & Q2 & 0.41 & 13.57 & 0.0000 \\ \hline
-2.000 / 25.000 & Q3 & 6,205.53 & 13.57 & 0.0000 \\ \hline
-2.000 / 25.000 & Q4 & 6,201.11 & 13.57 & 0.0000 \\ \hline
-5.000 / 50.000 & Q1 & 153,430.73 & 13.57 & 0.0000 \\ \hline
-5.000 / 50.000 & Q2 & 0.74 & 13.57 & 0.0000 \\ \hline
-5.000 / 50.000 & Q3 & 153,069.38 & 13.57 & 0.0000 \\ \hline
-5.000 / 50.000 & Q4 & 153,432.75 & 13.57 & 0.0000 \\ \hline
+\textbf{Muestra} & \textbf{Consulta} & \textbf{LIOs $(f{+}g) / h$} & \textbf{Filas ret. $(i) / fetches$ $(j)$} & \textbf{Disco $(k) /$ LIOs $(f{+}g)$} \\ \hline
+100 / 1.000 & Q1 - NOT EXISTS & 66.77 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q2 - LISTAGG & 0.10 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q3 - conteos & 76.48 & 13.57 & 0.0000 \\ \hline
+100 / 1.000 & Q4 - MINUS & 69.39 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q1 - NOT EXISTS & 1.550,49 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q2 - LISTAGG & 0.13 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q3 - conteos & 1.798,73 & 13.57 & 0.0000 \\ \hline
+500 / 5.000 & Q4 - MINUS & 1.554,50 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q1 - NOT EXISTS & 6.201,11 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q2 - LISTAGG & 0.23 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q3 - conteos & 7.717,08 & 13.57 & 0.0000 \\ \hline
+1.000 / 10.000 & Q4 - MINUS & 6.205,53 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q1 - NOT EXISTS & 25.251,64 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q2 - LISTAGG & 0.42 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q3 - conteos & 5,24 & 13.57 & 0.0000 \\ \hline
+2.000 / 25.000 & Q4 - MINUS & 25.282,46 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q1 - NOT EXISTS & 153.069,38 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q2 - LISTAGG & 0.74 & 13.57 & 0.0000 \\ \hline
+5.000 / 50.000 & Q3 - conteos & 34.195,11 & 13.57 & 0,0067 \\ \hline
+5.000 / 50.000 & Q4 - MINUS & 153.430,73 & 13.57 & 0.0000 \\ \hline
 \end{tabular}%
 }
 \end{table}
+
+\noindent\textbf{Observaciones sobre la tabla TKPROF:} La consulta Q2 mantiene los LIOs extremadamente bajos en todas las muestras (máximo 0,74 en la muestra más grande), confirmando su escalabilidad. La consulta Q3 muestra un comportamiento atípico en la muestra de 2.000 proveedores (5,24 LIOs/fila): el optimizador de Oracle seleccionó un plan adaptativo con \textit{VIEW PUSHED PREDICATE} e \textit{INDEX RANGE SCAN} (Plan Hash 3624992620), reduciendo drásticamente las lecturas lógicas respecto al plan anterior. En la muestra de 5.000 el optimizador volvió al plan masivo (Plan Hash 3380468438), registrando además 43.500 lecturas físicas de disco ($k/(f{+}g) = 0,0067$).
 
 \subsubsection{Tabla Resumen PostgreSQL}
 \begin{table}[h]
@@ -248,6 +254,17 @@ La diferencia de comportamiento en Q4 (donde PostgreSQL procesó hasta 99.2M de 
     \item \textbf{El crecimiento cuadrático}: El problema base implica comparar combinaciones de $N$ elementos ($N \times (N-1) / 2$). Q1, Q3 y Q4 escalan muy mal con grandes volúmenes. Con 5.000 proveedores se evalúan 12.5M de pares.
     \item \textbf{Oracle vs PostgreSQL}: Oracle supo aprovechar sus índices por defecto de manera más eficiente en los operadores \texttt{MINUS} (25.29s vs 54.90s en la muestra más grande), mientras que PostgreSQL fue superior en la manipulación ultra rápida de \texttt{STRING\_AGG}.
 \end{enumerate}
+
+\section{Herramientas de Rendimiento en PostgreSQL}
+El enunciado solicita investigar las herramientas equivalentes en PostgreSQL al Explain Plan y al TKPROF de Oracle. Se identificaron las siguientes:
+
+\begin{itemize}
+    \item \textbf{EXPLAIN (ANALYZE, BUFFERS)}: Equivalente funcional al Explain Plan de Oracle más la ejecución real. La opción \texttt{ANALYZE} ejecuta la consulta y reporta tiempos reales; \texttt{BUFFERS} reporta los accesos a buffers (\textit{shared hit}, \textit{shared read}, \textit{temp}), análogo a los LIOs y lecturas de disco de Oracle. Soporta múltiples formatos de salida (\texttt{TEXT}, \texttt{JSON}, \texttt{YAML}, \texttt{XML}).
+    \item \textbf{pg\_stat\_statements}: Extensión que acumula estadísticas globales de cada consulta SQL ejecutada (tiempo total, llamadas, filas, buffers compartidos, buffers temporales, etc.). Equivalente funcional a la vista dinámica \texttt{v\$sql} de Oracle. Se habilita con \texttt{shared\_preload\_libraries = 'pg\_stat\_statements'} en \texttt{postgresql.conf}.
+    \item \textbf{auto\_explain}: Extensión que registra automáticamente los planes de ejecución de consultas lentas en el log del servidor. Cumple un rol similar a la combinación \texttt{SQL\_TRACE + TKPROF} de Oracle: permite capturar planes de ejecución sin modificar el código de la aplicación. Se configura con \texttt{auto\_explain.log\_min\_duration}.
+\end{itemize}
+
+En este trabajo se utilizó \texttt{EXPLAIN (ANALYZE, BUFFERS)} como herramienta principal de medición, ya que proporciona el plan de ejecución, tiempos reales y métricas de buffers en una sola instrucción, sin requerir configuración adicional del servidor.
 
 \section{Evidencias en PostgreSQL (Pantallazos)}
 A continuación se presentan los pantallazos solicitados en el enunciado que evidencian la ejecución de las pruebas y la obtención de métricas en PostgreSQL de forma local:
